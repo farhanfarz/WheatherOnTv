@@ -104,7 +104,7 @@
         <!--View Controller-->
         <scene sceneID="y6R-NG-0Yr">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="eOk-Nv-297" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="eOk-Nv-297" customClass="ViewController" customModule="WheatherOnTv" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1PQ-n3-8Q3"/>
                         <viewControllerLayoutGuide type="bottom" id="xVN-oY-LOc"/>
@@ -285,46 +285,117 @@
                                     <constraint firstAttribute="width" constant="426" id="z07-6O-5z6"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MB3-qP-Mre">
-                                <rect key="frame" x="0.0" y="952" width="1920" height="128"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QHU-ix-Lma">
+                                <rect key="frame" x="652" y="879" width="620" height="81"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="CR2-ZJ-U4j"/>
+                                    <constraint firstAttribute="width" constant="620" id="CQD-Ny-sKS"/>
+                                    <constraint firstAttribute="height" constant="81" id="ehe-FC-wU7"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="u9j-ju-RIt">
-                                    <size key="itemSize" width="50" height="50"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="3E1-kH-nzX">
+                                    <size key="itemSize" width="80" height="80"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="DoL-pZ-qeB">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionOfWeeksIdentifier" id="bxy-EJ-Q3W" customClass="WTWeeksCollectionViewCell" customModule="WheatherOnTv" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qez-Om-55u">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-bN-efo">
+                                                            <rect key="frame" x="1" y="0.0" width="78" height="80"/>
+                                                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="16"/>
+                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="pNF-bN-efo" secondAttribute="trailing" constant="1" id="J7W-dj-kya"/>
+                                                        <constraint firstItem="pNF-bN-efo" firstAttribute="top" secondItem="qez-Om-55u" secondAttribute="top" id="SVo-qB-omA"/>
+                                                        <constraint firstAttribute="width" constant="80" id="Scg-9r-CjP"/>
+                                                        <constraint firstAttribute="height" constant="80" id="jCG-Xa-R7P"/>
+                                                        <constraint firstItem="pNF-bN-efo" firstAttribute="leading" secondItem="qez-Om-55u" secondAttribute="leading" constant="1" id="jl7-GW-F58"/>
+                                                        <constraint firstAttribute="bottom" secondItem="pNF-bN-efo" secondAttribute="bottom" id="oTi-Xr-Ahc"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="qez-Om-55u" firstAttribute="top" secondItem="bxy-EJ-Q3W" secondAttribute="top" id="Dwh-aY-dq1"/>
+                                            <constraint firstItem="qez-Om-55u" firstAttribute="leading" secondItem="bxy-EJ-Q3W" secondAttribute="leading" id="dTs-g9-Q4w"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="viewWidth" destination="Scg-9r-CjP" id="ceC-qg-l6p"/>
+                                            <outlet property="weekDaysLabel" destination="pNF-bN-efo" id="GWJ-a3-qBb"/>
+                                            <outlet property="weekView" destination="qez-Om-55u" id="6eG-wZ-3tq"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QHU-ix-Lma">
-                                <rect key="frame" x="2" y="846" width="1886" height="70"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3E1-kH-nzX">
-                                    <size key="itemSize" width="50" height="50"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ag0-11-fl9">
+                                <rect key="frame" x="650" y="731" width="620" height="140"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="620" id="fxX-m8-lau"/>
+                                    <constraint firstAttribute="height" constant="140" id="hig-p3-sI3"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FGa-Vt-wfY">
+                                    <size key="itemSize" width="70" height="70"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="bxy-EJ-Q3W">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionOfTimesIdentifier" id="YSo-Vv-9ta" customClass="WTTimeCollectionViewCell" customModule="WheatherOnTv" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3PF-SG-zVd">
+                                                    <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.32.00 AM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCn-P0-ztM">
+                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.99817708329999999" green="0.99817708329999999" blue="0.99817708329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="uCn-P0-ztM" secondAttribute="bottom" id="0Uk-ZG-WsP"/>
+                                                        <constraint firstItem="uCn-P0-ztM" firstAttribute="top" secondItem="3PF-SG-zVd" secondAttribute="top" id="McP-7I-00c"/>
+                                                        <constraint firstAttribute="width" constant="70" id="ZX0-PA-q8O"/>
+                                                        <constraint firstAttribute="height" constant="70" id="chq-wq-IFl"/>
+                                                        <constraint firstAttribute="trailing" secondItem="uCn-P0-ztM" secondAttribute="trailing" id="tCo-De-dz4"/>
+                                                        <constraint firstItem="uCn-P0-ztM" firstAttribute="leading" secondItem="3PF-SG-zVd" secondAttribute="leading" id="vLR-v7-1Zt"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="3PF-SG-zVd" firstAttribute="top" secondItem="YSo-Vv-9ta" secondAttribute="top" id="V98-Gm-9wq"/>
+                                            <constraint firstItem="3PF-SG-zVd" firstAttribute="leading" secondItem="YSo-Vv-9ta" secondAttribute="leading" id="wGu-cG-m2t"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="timeLabel" destination="uCn-P0-ztM" id="1Aa-Se-59z"/>
+                                            <outlet property="timeView" destination="3PF-SG-zVd" id="f4A-tB-ece"/>
+                                            <outlet property="viewWidth" destination="ZX0-PA-q8O" id="2hV-f2-km1"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -334,7 +405,6 @@
                             <constraint firstItem="Egl-qk-ncK" firstAttribute="leading" secondItem="4bx-sZ-dID" secondAttribute="leading" id="0fd-82-Uvb"/>
                             <constraint firstItem="FwJ-4e-JEV" firstAttribute="bottom" secondItem="cg9-Wb-RBU" secondAttribute="bottom" id="14w-oi-0CX"/>
                             <constraint firstItem="DQb-bO-Vop" firstAttribute="leading" secondItem="HAW-dY-bbJ" secondAttribute="leading" constant="2" id="1WW-O7-UU8"/>
-                            <constraint firstItem="MB3-qP-Mre" firstAttribute="leading" secondItem="Cjo-Yy-JKl" secondAttribute="leading" id="2Zg-Mv-hqd"/>
                             <constraint firstItem="xVN-oY-LOc" firstAttribute="top" secondItem="Cjo-Yy-JKl" secondAttribute="bottom" id="3PF-GN-CAz"/>
                             <constraint firstItem="Cjo-Yy-JKl" firstAttribute="top" secondItem="HAW-dY-bbJ" secondAttribute="top" id="3Y1-1B-KDQ"/>
                             <constraint firstItem="rhA-cA-cP0" firstAttribute="trailing" secondItem="Egl-qk-ncK" secondAttribute="trailing" id="3bb-NE-1OR"/>
@@ -346,17 +416,23 @@
                             <constraint firstItem="cg9-Wb-RBU" firstAttribute="top" secondItem="1PQ-n3-8Q3" secondAttribute="bottom" constant="15" id="Mm2-Bb-wTn"/>
                             <constraint firstItem="rhA-cA-cP0" firstAttribute="top" secondItem="Egl-qk-ncK" secondAttribute="bottom" constant="8" id="Qve-O5-Dkl"/>
                             <constraint firstItem="Cjo-Yy-JKl" firstAttribute="leading" secondItem="HAW-dY-bbJ" secondAttribute="leading" id="Ujp-Tf-VPi"/>
+                            <constraint firstItem="QHU-ix-Lma" firstAttribute="centerX" secondItem="Cjo-Yy-JKl" secondAttribute="centerX" constant="2" id="Urp-RW-bvM"/>
                             <constraint firstItem="DQb-bO-Vop" firstAttribute="top" secondItem="HAW-dY-bbJ" secondAttribute="top" constant="5" id="Vnw-ud-qfF"/>
+                            <constraint firstItem="xVN-oY-LOc" firstAttribute="top" secondItem="QHU-ix-Lma" secondAttribute="bottom" constant="120" id="a7O-1a-eaL"/>
+                            <constraint firstItem="Ag0-11-fl9" firstAttribute="centerX" secondItem="Cjo-Yy-JKl" secondAttribute="centerX" id="bLh-M3-h5F"/>
                             <constraint firstItem="4bx-sZ-dID" firstAttribute="top" secondItem="FwJ-4e-JEV" secondAttribute="bottom" constant="18" id="gKd-rh-yfJ"/>
-                            <constraint firstItem="FwJ-4e-JEV" firstAttribute="centerX" secondItem="MB3-qP-Mre" secondAttribute="centerX" id="kYU-Da-AVj"/>
                             <constraint firstItem="FwJ-4e-JEV" firstAttribute="leading" secondItem="cg9-Wb-RBU" secondAttribute="leading" id="si2-Ad-61p"/>
                             <constraint firstItem="Cjo-Yy-JKl" firstAttribute="top" secondItem="Egl-qk-ncK" secondAttribute="bottom" constant="-253" id="sxK-EC-zdg"/>
                             <constraint firstItem="FwJ-4e-JEV" firstAttribute="top" secondItem="cg9-Wb-RBU" secondAttribute="top" id="vTw-Hd-VR5"/>
-                            <constraint firstItem="MB3-qP-Mre" firstAttribute="bottom" secondItem="xVN-oY-LOc" secondAttribute="top" id="vlp-WJ-34T"/>
+                            <constraint firstItem="QHU-ix-Lma" firstAttribute="top" secondItem="Ag0-11-fl9" secondAttribute="bottom" constant="8" id="yyW-2t-G1f"/>
                             <constraint firstItem="rhA-cA-cP0" firstAttribute="leading" secondItem="Egl-qk-ncK" secondAttribute="leading" id="zaI-vL-cIY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="51P-xw-0nX"/>
+                    <connections>
+                        <outlet property="timeCollectionView" destination="Ag0-11-fl9" id="Lim-du-R6H"/>
+                        <outlet property="weekCollectionView" destination="QHU-ix-Lma" id="Vxe-SC-9Kb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RGI-XJ-lQC" sceneMemberID="firstResponder"/>
             </objects>

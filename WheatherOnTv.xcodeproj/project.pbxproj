@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A60C7F31D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60C7F21D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift */; };
+		7A60C7F51D6B2BE1009F7B10 /* WTCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60C7F41D6B2BE1009F7B10 /* WTCornerRadius.swift */; };
 		7A78EE581D65BFCB004FC738 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78EE571D65BFCB004FC738 /* AppDelegate.swift */; };
 		7A78EE5A1D65BFCB004FC738 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78EE591D65BFCB004FC738 /* ViewController.swift */; };
 		7A78EE5D1D65BFCB004FC738 /* WheatherOnTv.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A78EE5B1D65BFCB004FC738 /* WheatherOnTv.xcdatamodeld */; };
@@ -14,6 +16,7 @@
 		7A78EE621D65BFCB004FC738 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A78EE611D65BFCB004FC738 /* Assets.xcassets */; };
 		7A78EE6D1D65BFCB004FC738 /* WheatherOnTvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78EE6C1D65BFCB004FC738 /* WheatherOnTvTests.swift */; };
 		7A78EE781D65BFCB004FC738 /* WheatherOnTvUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78EE771D65BFCB004FC738 /* WheatherOnTvUITests.swift */; };
+		7AC919EC1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC919EB1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A60C7F21D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTWeeksCollectionViewCell.swift; sourceTree = "<group>"; };
+		7A60C7F41D6B2BE1009F7B10 /* WTCornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTCornerRadius.swift; sourceTree = "<group>"; };
 		7A78EE541D65BFCB004FC738 /* WheatherOnTv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheatherOnTv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A78EE571D65BFCB004FC738 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7A78EE591D65BFCB004FC738 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7A78EE591D65BFCB004FC738 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
 		7A78EE5C1D65BFCB004FC738 /* WheatherOnTv.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WheatherOnTv.xcdatamodel; sourceTree = "<group>"; };
 		7A78EE5F1D65BFCB004FC738 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A78EE611D65BFCB004FC738 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 		7A78EE731D65BFCB004FC738 /* WheatherOnTvUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WheatherOnTvUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A78EE771D65BFCB004FC738 /* WheatherOnTvUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheatherOnTvUITests.swift; sourceTree = "<group>"; };
 		7A78EE791D65BFCB004FC738 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AC919EB1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTTimeCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +80,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A60C7F01D6B0828009F7B10 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7A78EE591D65BFCB004FC738 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7A60C7F11D6B0828009F7B10 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7A60C7F21D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift */,
+				7A60C7F41D6B2BE1009F7B10 /* WTCornerRadius.swift */,
+				7AC919EB1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		7A78EE4B1D65BFCB004FC738 = {
 			isa = PBXGroup;
 			children = (
@@ -97,8 +121,9 @@
 		7A78EE561D65BFCB004FC738 /* WheatherOnTv */ = {
 			isa = PBXGroup;
 			children = (
+				7A60C7F01D6B0828009F7B10 /* Controller */,
+				7A60C7F11D6B0828009F7B10 /* Views */,
 				7A78EE571D65BFCB004FC738 /* AppDelegate.swift */,
-				7A78EE591D65BFCB004FC738 /* ViewController.swift */,
 				7A78EE5E1D65BFCB004FC738 /* Main.storyboard */,
 				7A78EE611D65BFCB004FC738 /* Assets.xcassets */,
 				7A78EE631D65BFCB004FC738 /* Info.plist */,
@@ -257,7 +282,10 @@
 			files = (
 				7A78EE5A1D65BFCB004FC738 /* ViewController.swift in Sources */,
 				7A78EE581D65BFCB004FC738 /* AppDelegate.swift in Sources */,
+				7AC919EC1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift in Sources */,
+				7A60C7F51D6B2BE1009F7B10 /* WTCornerRadius.swift in Sources */,
 				7A78EE5D1D65BFCB004FC738 /* WheatherOnTv.xcdatamodeld in Sources */,
+				7A60C7F31D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +504,7 @@
 				7A78EE7E1D65BFCB004FC738 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A78EE7F1D65BFCB004FC738 /* Build configuration list for PBXNativeTarget "WheatherOnTvTests" */ = {
 			isa = XCConfigurationList;
@@ -484,6 +513,7 @@
 				7A78EE811D65BFCB004FC738 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A78EE821D65BFCB004FC738 /* Build configuration list for PBXNativeTarget "WheatherOnTvUITests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +522,7 @@
 				7A78EE841D65BFCB004FC738 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
