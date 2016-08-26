@@ -21,70 +21,6 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="DGw-0r-GKa">
-            <objects>
-                <viewController id="ROW-ab-zq8" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="cSs-ea-EKk"/>
-                        <viewControllerLayoutGuide type="bottom" id="Bq5-4e-TQ9"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yOk-ag-IZN">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dawn-landscape-mountains-nature-2" translatesAutoresizingMaskIntoConstraints="NO" id="DUH-NX-Wio">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                            </imageView>
-                            <view alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="moG-LA-tu6">
-                                <rect key="frame" x="1920" y="290" width="1107" height="500"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Default location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEi-eO-SV6">
-                                        <rect key="frame" x="8" y="10" width="1091" height="150"/>
-                                        <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="43"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XmT-4T-CZH">
-                                        <rect key="frame" x="334" y="192" width="439" height="86"/>
-                                        <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                                        <state key="normal" title="Current GPS location"/>
-                                        <connections>
-                                            <action selector="didTapOnGPS:" destination="ROW-ab-zq8" eventType="primaryActionTriggered" id="mM0-Xo-26n"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="47C-s3-XMB">
-                                        <rect key="frame" x="334" y="302" width="439" height="86"/>
-                                        <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                                        <state key="normal" title="Manual Input"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dTA-Af-fnp">
-                                <rect key="frame" x="-500" y="290" width="500" height="500"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weather On" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Wl-aN-1da">
-                                        <rect key="frame" x="-17" y="175" width="533" height="150"/>
-                                        <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="80"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                    </view>
-                    <navigationItem key="navigationItem" id="Dsj-9k-Fny"/>
-                    <connections>
-                        <outlet property="locationSelectionContainer" destination="moG-LA-tu6" id="oSG-PB-JLv"/>
-                        <outlet property="titleContainer" destination="dTA-Af-fnp" id="YK6-il-ZEN"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="P8K-IE-6fF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4264" y="-5197"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="IyM-0C-LZT">
             <objects>
@@ -94,17 +30,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="ROW-ab-zq8" kind="relationship" relationship="rootViewController" id="e43-5h-7yn"/>
+                        <segue destination="fer-fp-M4q" kind="relationship" relationship="rootViewController" id="Vuq-lu-sse"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jwq-0Z-9tD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2230" y="-4512"/>
+            <point key="canvasLocation" x="2016" y="-5964"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="y6R-NG-0Yr">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="eOk-Nv-297" customClass="ViewController" customModule="WheatherOnTv" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eOk-Nv-297" customClass="ViewController" customModule="WheatherOnTv" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1PQ-n3-8Q3"/>
                         <viewControllerLayoutGuide type="bottom" id="xVN-oY-LOc"/>
@@ -436,7 +372,79 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RGI-XJ-lQC" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4264" y="-3924"/>
+            <point key="canvasLocation" x="4150" y="-5422"/>
+        </scene>
+        <!--Main Location View Controller-->
+        <scene sceneID="coD-kk-mNp">
+            <objects>
+                <viewController id="fer-fp-M4q" customClass="WTMainLocationViewController" customModule="WheatherOnTv" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qCg-LF-FUg"/>
+                        <viewControllerLayoutGuide type="bottom" id="LI3-bw-b0D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ca3-S1-03c">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dawn-landscape-mountains-nature-2" translatesAutoresizingMaskIntoConstraints="NO" id="k2n-Mi-z4t">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                            </imageView>
+                            <view alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qi4-BE-vNu">
+                                <rect key="frame" x="1920" y="290" width="1107" height="500"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Default location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHr-LW-j7S">
+                                        <rect key="frame" x="8" y="10" width="1091" height="150"/>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="43"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JY1-1M-kZC">
+                                        <rect key="frame" x="334" y="192" width="439" height="86"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                        <state key="normal" title="Current GPS location"/>
+                                        <connections>
+                                            <action selector="didTapGPSButton:" destination="fer-fp-M4q" eventType="touchUpInside" id="La4-1M-c27"/>
+                                            <action selector="didTapOnGPS:" destination="fer-fp-M4q" eventType="primaryActionTriggered" id="PgA-VP-s1v"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ah9-Am-GX4">
+                                        <rect key="frame" x="334" y="302" width="439" height="86"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                        <state key="normal" title="Manual Input"/>
+                                        <connections>
+                                            <action selector="didTapManualInputButton:" destination="fer-fp-M4q" eventType="touchUpInside" id="Jwk-Y9-3Qh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VtV-Ar-9cc">
+                                <rect key="frame" x="-500" y="290" width="500" height="500"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weather On" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxV-7u-Oec">
+                                        <rect key="frame" x="-17" y="175" width="533" height="150"/>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="80"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                    </view>
+                    <navigationItem key="navigationItem" id="n0l-4P-Ym0"/>
+                    <connections>
+                        <outlet property="currentGPSButton" destination="JY1-1M-kZC" id="Y8j-jO-grc"/>
+                        <outlet property="defaultLocation" destination="VHr-LW-j7S" id="hVK-Te-59K"/>
+                        <outlet property="labelLogoTitle" destination="wxV-7u-Oec" id="vE2-R8-Vjw"/>
+                        <outlet property="locationSelectionContainer" destination="Qi4-BE-vNu" id="g0S-Nt-Ah3"/>
+                        <outlet property="manualInputButton" destination="ah9-Am-GX4" id="tKS-fr-wKp"/>
+                        <outlet property="titleContainer" destination="VtV-Ar-9cc" id="SFz-Qv-zDO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pOi-RJ-CwU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4068" y="-6565"/>
         </scene>
     </scenes>
     <resources>

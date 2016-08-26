@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A2509A91D704E0700625177 /* OpenWeatherMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2509A81D704E0700625177 /* OpenWeatherMap.m */; };
+		7A2509AB1D7050DD00625177 /* WTMainLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2509AA1D7050DD00625177 /* WTMainLocationViewController.swift */; };
 		7A60C7F31D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60C7F21D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift */; };
 		7A60C7F51D6B2BE1009F7B10 /* WTCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60C7F41D6B2BE1009F7B10 /* WTCornerRadius.swift */; };
 		7A78EE581D65BFCB004FC738 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78EE571D65BFCB004FC738 /* AppDelegate.swift */; };
@@ -37,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A2509A61D704E0600625177 /* WheatherOnTv-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WheatherOnTv-Bridging-Header.h"; sourceTree = "<group>"; };
+		7A2509A71D704E0700625177 /* OpenWeatherMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWeatherMap.h; sourceTree = "<group>"; };
+		7A2509A81D704E0700625177 /* OpenWeatherMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherMap.m; sourceTree = "<group>"; };
+		7A2509AA1D7050DD00625177 /* WTMainLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTMainLocationViewController.swift; sourceTree = "<group>"; };
 		7A60C7F21D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTWeeksCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A60C7F41D6B2BE1009F7B10 /* WTCornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTCornerRadius.swift; sourceTree = "<group>"; };
 		7A78EE541D65BFCB004FC738 /* WheatherOnTv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheatherOnTv.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,10 +86,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A2509A41D704DBE00625177 /* WheatherOnTVSwift */ = {
+			isa = PBXGroup;
+			children = (
+				7A78EE561D65BFCB004FC738 /* WheatherOnTv */,
+			);
+			name = WheatherOnTVSwift;
+			sourceTree = "<group>";
+		};
+		7A2509A51D704DE300625177 /* ThirdParties */ = {
+			isa = PBXGroup;
+			children = (
+				7A2509A71D704E0700625177 /* OpenWeatherMap.h */,
+				7A2509A81D704E0700625177 /* OpenWeatherMap.m */,
+				7A2509A61D704E0600625177 /* WheatherOnTv-Bridging-Header.h */,
+			);
+			name = ThirdParties;
+			sourceTree = "<group>";
+		};
 		7A60C7F01D6B0828009F7B10 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				7A78EE591D65BFCB004FC738 /* ViewController.swift */,
+				7A2509AA1D7050DD00625177 /* WTMainLocationViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -101,7 +126,7 @@
 		7A78EE4B1D65BFCB004FC738 = {
 			isa = PBXGroup;
 			children = (
-				7A78EE561D65BFCB004FC738 /* WheatherOnTv */,
+				7A2509A41D704DBE00625177 /* WheatherOnTVSwift */,
 				7A78EE6B1D65BFCB004FC738 /* WheatherOnTvTests */,
 				7A78EE761D65BFCB004FC738 /* WheatherOnTvUITests */,
 				7A78EE551D65BFCB004FC738 /* Products */,
@@ -123,6 +148,7 @@
 			children = (
 				7A60C7F01D6B0828009F7B10 /* Controller */,
 				7A60C7F11D6B0828009F7B10 /* Views */,
+				7A2509A51D704DE300625177 /* ThirdParties */,
 				7A78EE571D65BFCB004FC738 /* AppDelegate.swift */,
 				7A78EE5E1D65BFCB004FC738 /* Main.storyboard */,
 				7A78EE611D65BFCB004FC738 /* Assets.xcassets */,
@@ -281,6 +307,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A78EE5A1D65BFCB004FC738 /* ViewController.swift in Sources */,
+				7A2509AB1D7050DD00625177 /* WTMainLocationViewController.swift in Sources */,
+				7A2509A91D704E0700625177 /* OpenWeatherMap.m in Sources */,
 				7A78EE581D65BFCB004FC738 /* AppDelegate.swift in Sources */,
 				7AC919EC1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift in Sources */,
 				7A60C7F51D6B2BE1009F7B10 /* WTCornerRadius.swift in Sources */,
@@ -420,10 +448,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = WheatherOnTv/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AleGiacomella.WheatherOnTv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WheatherOnTv/WheatherOnTv-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -432,10 +463,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = WheatherOnTv/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AleGiacomella.WheatherOnTv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WheatherOnTv/WheatherOnTv-Bridging-Header.h";
 			};
 			name = Release;
 		};
