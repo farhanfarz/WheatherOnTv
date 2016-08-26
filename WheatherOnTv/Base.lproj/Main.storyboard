@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="eOk-Nv-297">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="fwY-xY-NfY">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -36,6 +36,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jwq-0Z-9tD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2016" y="-5964"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="W5z-EZ-PDq">
+            <objects>
+                <navigationController id="oe4-N1-DrD" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nUG-md-rec">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="145"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="eOk-Nv-297" kind="relationship" relationship="rootViewController" id="pSq-g9-QRP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jPv-DX-dnJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2016" y="-4825"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="y6R-NG-0Yr">
@@ -404,7 +420,6 @@
                                         <state key="normal" title="Current GPS location"/>
                                         <connections>
                                             <action selector="didTapGPSButton:" destination="fer-fp-M4q" eventType="touchUpInside" id="La4-1M-c27"/>
-                                            <action selector="didTapOnGPS:" destination="fer-fp-M4q" eventType="primaryActionTriggered" id="PgA-VP-s1v"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ah9-Am-GX4">
