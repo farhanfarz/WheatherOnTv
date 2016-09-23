@@ -16,11 +16,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-typedef enum {
-    kOWMTempKelvin,
-    kOWMTempCelcius,
-    kOWMTempFahrenheit
-} OWMTemperature;
+typedef NS_ENUM(NSUInteger, OWMTemperature) {
+    OWMTemperatureKelvin,
+    OWMTemperatureCelcius,
+    OWMTemperatureFahrenheit
+};
 
 
 @interface OpenWeatherMap : NSObject

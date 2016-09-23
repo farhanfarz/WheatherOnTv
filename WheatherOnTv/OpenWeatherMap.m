@@ -36,7 +36,7 @@
         _weatherQueue = [[NSOperationQueue alloc] init];
         _weatherQueue.name = @"OMWWeatherQueue";
         
-        _currentTemperatureFormat = kOWMTempCelcius;
+        _currentTemperatureFormat = OWMTemperatureCelcius;
         
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.session = [NSURLSession sessionWithConfiguration:config];
@@ -65,9 +65,9 @@
 
 
 - (NSNumber *) convertTemp:(NSNumber *) temp {
-    if (_currentTemperatureFormat == kOWMTempCelcius) {
+    if (_currentTemperatureFormat == OWMTemperatureCelcius) {
         return [OpenWeatherMap tempToCelcius:temp];
-    } else if (_currentTemperatureFormat == kOWMTempFahrenheit) {
+    } else if (_currentTemperatureFormat == OWMTemperatureFahrenheit) {
         return [OpenWeatherMap tempToFahrenheit:temp];
     } else {
         return temp;

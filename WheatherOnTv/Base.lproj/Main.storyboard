@@ -392,6 +392,7 @@
                         <outlet property="maximumDegree" destination="Gh8-iA-ndt" id="86Y-ME-P9j"/>
                         <outlet property="minimumDegree" destination="Yt7-eL-3cu" id="Oc1-d5-Wob"/>
                         <outlet property="timeCollectionView" destination="Ag0-11-fl9" id="Lim-du-R6H"/>
+                        <outlet property="weatherTypeImage" destination="cg9-Wb-RBU" id="2b9-ww-6zy"/>
                         <outlet property="weekCollectionView" destination="QHU-ix-Lma" id="Vxe-SC-9Kb"/>
                     </connections>
                 </viewController>
@@ -411,7 +412,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="London" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="be8-dR-wc8">
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="London" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="be8-dR-wc8">
                                 <rect key="frame" x="394" y="662" width="1158" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="NbC-c6-EgF"/>
@@ -420,7 +421,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdd-u6-F76">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdd-u6-F76">
                                 <rect key="frame" x="781" y="791" width="298" height="86"/>
                                 <color key="backgroundColor" red="0.69721554487179493" green="0.042370765762947848" blue="0.10245890697280269" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
