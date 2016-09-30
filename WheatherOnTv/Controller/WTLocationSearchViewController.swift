@@ -15,13 +15,12 @@ class WTLocationSearchViewController: UIViewController {
     
     @IBOutlet weak var locationSerachField: UITextField!
     
+    @IBOutlet weak var autocompleteTableView: UITableView!
+   
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
-//        apikey  = "AIzaSyBd7proCMNWDL1HhazmCvYqirSxiWv1g3Y"
-        
-//        getLatLngForZip("95014")
+      
     }
     
     @IBAction func didTapGetLocation(sender: UIButton) {
@@ -42,27 +41,8 @@ class WTLocationSearchViewController: UIViewController {
 //            detailedVC?.locationToBeDisplayedField = locationSerachField.text
 //        }
 //    }
+   }
 
-//    func getLatLngForZip(zipCode: String) {
-//        let url = NSURL(string: "\(baseUrl)address=\(zipCode)&key=\(apikey)")
-//        let data = NSData(contentsOfURL: url!)
-//        let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
-//        if let result = json["results"] as? NSArray {
-//            if let geometry = result[0]["geometry"] as? NSDictionary {
-//                if let location = geometry["location"] as? NSDictionary {
-//                    let latitude = location["lat"] as! Float
-//                    let longitude = location["lng"] as! Float
-//                    print("\n\(latitude), \(longitude)")
-//                }
-//            }
-//        }
-//    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
 
-   
 
-}

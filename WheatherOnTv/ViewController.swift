@@ -40,11 +40,15 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     
     
     @IBOutlet weak var minimumDegree: UILabel!
-    
+    var locManager = CLLocationManager()
     var locationToBeDisplayedField : String?
     var arrayOfTime : [String]?
     var arrayOfWeeks : [String]?
     var city : String?
+    private var locationTitle:String = ""
+    private var locationLatitude:String = ""
+    private var locationLongitude:String = ""
+    
     
     var locationManager: CLLocationManager = CLLocationManager()
     var startLocation: CLLocation!
@@ -53,9 +57,9 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     var timer : NSTimer!
     
     let apiKey:String = "eea1961c530c59ba1c9a9aca79112e3c"
-
+    
     var openWeatherAppObject:OpenWeatherMap!
-
+    
     
     @IBAction func getDataButtonClicked(sender: UIButton) {
         
@@ -78,7 +82,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                     if let tempData = temperatureDetails["temp"] as? String {
                         
                         self.degreeLabel.text = tempData
-                    
+                        
                     }
                     
                     if let tempData = temperatureDetails["temp"] as? Double {
@@ -99,7 +103,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                     }
                     
                 }
-                 if let weatherTypeArray = responseDictionary!["weather"] as? NSArray {
+                if let weatherTypeArray = responseDictionary!["weather"] as? NSArray {
                     
                     for weatherDict in weatherTypeArray {
                         
@@ -112,15 +116,21 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                             
                             self.cityNameLabel.text = weatherTypeImage
                             
-                            self.weatherTypeImage.image = UIImage(named: weatherTypeImage)
-
+                            let weatherIcon = "http://openweathermap.org/img/w/\(weatherDict["icon"]).png"
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                self.weatherTypeImage.image = UIImage(named: weatherIcon)
+                            })
+                            
+                            
                         }
                         
                         if let weatherImage = weatherDict["icon"] as? Int {
                             
-                             self.weatherTypeImage.image = UIImage(named: String(weatherImage))
+                            self.weatherTypeImage.image = UIImage(named: String(weatherImage))
                         }
                         if let weatherImage = weatherDict["icon"] as? Double {
+                            
+                            
                             
                             self.weatherTypeImage.image = UIImage(named: String(weatherImage))
                         }
@@ -130,73 +140,8 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                     
                 }
                 
-                /*
-                 [base: stations, id: 2643743, dt: 2016-09-23 07:56:18 +0000, main: {
-                 humidity = 80;
-                 pressure = 1025;
-                 temp = "11.54000244140627";
-                 "temp_max" = "15.55999145507815";
-                 "temp_min" = "7.779992675781273";
-                 }, coord: {
-                 lat = "51.51";
-                 lon = "-0.13";
-                 }, wind: {
-                 deg = "188.502";
-                 speed = "1.72";
-                 }, sys: {
-                 country = GB;
-                 id = 258730;
-                 message = "0.0049";
-                 sunrise = "2016-09-23 05:49:17 +0000";
-                 sunset = "2016-09-23 17:55:00 +0000";
-                 type = 3;
-                 }, weather: <__NSCFArray 0x7f9c159821b0>(
-                 {
-                 description = "clear sky";
-                 icon = 01d;
-                 id = 800;
-                 main = Clear;
-                 }
-                 )
-                 , clouds: {
-                 all = 0;
-                 }, cod: 200, name: London, rain: {
-                 }]
-                 London
-                 [base: stations, id: 2643743, dt: 2016-09-23 07:56:18 +0000, main: {
-                 humidity = 80;
-                 pressure = 1025;
-                 temp = "11.54000244140627";
-                 "temp_max" = "15.55999145507815";
-                 "temp_min" = "7.779992675781273";
-                 }, coord: {
-                 lat = "51.51";
-                 lon = "-0.13";
-                 }, wind: {
-                 deg = "188.502";
-                 speed = "1.72";
-                 }, sys: {
-                 country = GB;
-                 id = 258730;
-                 message = "0.0049";
-                 sunrise = "2016-09-23 05:49:17 +0000";
-                 sunset = "2016-09-23 17:55:00 +0000";
-                 type = 3;
-                 }, weather: <__NSCFArray 0x7f9c134f1030>(
-                 {
-                 description = "clear sky";
-                 icon = 01d;
-                 id = 800;
-                 main = Clear;
-                 }
-                 )
-                 , clouds: {
-                 all = 0;
-                 }, cod: 200, name: London, rain: {
-                 }]
-                 */
             }else {
-
+                
                 print(error)
             }
             
@@ -226,35 +171,69 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         weekCollectionView.delegate = self
         weekCollectionView.dataSource = self
         
+        
+        
+        
         self.updateDate()
         self.timer = NSTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateDate), userInfo: nil, repeats: true)
         
         arrayOfWeeks = ["Monday","Tuesday","Wendesday","Thursday","Friday","Saturday","Sunday"]
         arrayOfTime = ["9.00 am ","10.00 pm","11.00 pm","12.00 pm","8.00 pm","12.00 pm","1.00 pm"]
-//        city = "Fiesso Umbertiano"
         
-        
-        let lat = 51.509865
-        //            latestLocation.coordinate.latitude
-        let lon = -0.118092
-        //            latestLocation.coordinate.longitude
-        
-        // Put together a URL With lat and lon
-//        let path:String = "http://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&eea1961c530c59ba1c9a9aca79112e3c"
-//        print(path)
-        
-        
-//        delay(1.0) {
-//            
-//            self.getWheatherData(path)
-//        }
-        
+        city = "Cochin"
         openWeatherAppObject = OpenWeatherMap(APIKey: apiKey)
         
         openWeatherAppObject.setApiVersion("2.5")
         openWeatherAppObject.setTemperatureFormat(.Celcius)
         openWeatherAppObject.setLang("en")
+        apiCalls()
         
+        if let weekday = getDayOfWeek("2014-08-27") {
+            print(weekday)
+        } else {
+            print("bad input")
+        }
+        
+        
+        
+        
+        
+        
+        
+        let lat = 51.509865
+        let lon = -0.118092
+        //        let locationCordinate = CLLocationCoordinate2DMake(lat, lon)
+        
+        
+        var currentLocation = CLLocation()
+        
+        
+        var longitude = Double(currentLocation.coordinate.longitude)
+        var latitude = Double(currentLocation.coordinate.latitude)
+        let locationCordinate = CLLocationCoordinate2DMake(longitude, latitude)
+        openWeatherAppObject.currentWeatherByCoordinate(locationCordinate) { (error, currentWeatherDictionary) in
+            
+            
+            print("currentWeatherByCoordinate:\(currentWeatherDictionary)")
+        }
+        
+    }
+    
+    
+    
+    
+    func getDayOfWeek(today:String)->Int? {
+        
+        let formatter  = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        if let todayDate = formatter.dateFromString(today) {
+            let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
+            let weekDay = myComponents.weekday
+            return weekDay
+        } else {
+            return nil
+        }
     }
     
     func delay(delay:Double, closure:()->()) {
@@ -295,97 +274,6 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         
         dayOfWeekLabel.text =  String(format: "%02ld", Int(components.day)) + " " + monthName + "," + dayWeekName  + " " + "\(year)"
         
-        
-    }
-    
-    
-    
-    //         func extractData(weatherData: NSData) {
-    //
-    //
-    //         let json = try? NSJSONSerialization.JSONObjectWithData(weatherData, options: []) as! NSDictionary
-    //
-    //         if json != nil {
-    //         if let name = json!["name"] as? String {
-    //         locationLabel.text = name
-    //         }
-    //
-    //         if let main = json!["main"] as? NSDictionary {
-    //         if let temp = main["temp"] as? Double {
-    //         degreeLabel.text = String(format: "%.0f", temp)
-    //         }
-    //         }
-    //         }
-    //         }
-    //
-    //         func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    //         let latestLocation: AnyObject = locations[locations.count - 1]
-    //
-    //         let lat = latestLocation.coordinate.latitude
-    //         let lon = latestLocation.coordinate.longitude
-    //
-    //         // Put together a URL With lat and lon
-    //         let path = "http://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&eea1961c530c59ba1c9a9aca79112e3c"
-    //         print(path)
-    //
-    //         let url = NSURL(string: path)
-    //
-    //         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) in
-    //         dispatch_async(dispatch_get_main_queue(), {
-    //         self.extractData(data!)
-    //         })
-    //         }
-    //
-    //         task.resume()
-    //         }
-    //
-    //         func locationManager(manager: CLLocationManager,
-    //         didFailWithError error: NSError) {
-    //
-    //         }
-    
-    
-    
-    func getWheatherData(urlString : String){
-        
-        var errorType: NSError?
-        let url = NSURL(string: urlString)
-        
-//        var openWeatherAppObject = OpenWeatherMap()
-        
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) in
-            dispatch_async(dispatch_get_main_queue(), {
-                self.setData(data!)
-            })
-        }
-        
-        task.resume()
-    }
-    
-    
-    
-    func setData(wheatherData:NSData) {
-        
-        
-        let jsonResponse = try! NSJSONSerialization.JSONObjectWithData(wheatherData, options: []) as? NSDictionary
-        
-        if let cityName = jsonResponse!["name"] as? String {
-            
-            cityNameLabel.text = cityName
-            
-        }
-        
-        if let temperatureDetails = jsonResponse!["main"] as? NSDictionary {
-            
-            if let tempData = temperatureDetails["temp"] as? Double {
-                
-                cityTempLabel.text = String(format: "%.1f",tempData)
-               
-                
-            }
-            
-            
-        }
         
     }
     
@@ -433,31 +321,49 @@ extension ViewController {
         
         
         
-        // 
-        
-        openWeatherAppObject.currentWeatherByCityId("1") { (error, responseDictionaryData) in
-            
-        }
-        
         //
         
-        let lat = 51.509865
-        let lon = -0.118092
-        let locationCordinate = CLLocationCoordinate2DMake(lat, lon)
-        openWeatherAppObject.currentWeatherByCoordinate(locationCordinate) { (error, currentWeatherDictionary) in
-            
-        }
+        //        openWeatherAppObject.currentWeatherByCityId("258730") { (error, responseDictionaryData) in
+        //
+        //        }
         
-        // 
+        
+        //        let lat = 51.509865
+        //        let lon = -0.118092
+        //        let locationCordinate = CLLocationCoordinate2DMake(lat, lon)
+        //
+        //
+        //
+        //        openWeatherAppObject.currentWeatherByCoordinate(locationCordinate) { (error, currentWeatherDictionary) in
+        //
+        //
+        //            print(currentWeatherDictionary)
+        //        }
         
         openWeatherAppObject.forecastWeatherByCityName(city) { (error, responseDictionary) in
             
+            print("forecastWeatherByCityName:\(responseDictionary)")
             
         }
-        
-        openWeatherAppObject.forecastWeatherByCoordinate(locationCordinate) { (error, reponseDictiuonary) in
+        //
+        //        openWeatherAppObject.forecastWeatherByCoordinate(locationCordinate) { (error, responseDictionary) in
+        //
+        //              print("forecastWeatherByCoordinate:\(responseDictionary)")
+        //        }
+        //
+        openWeatherAppObject.dailyForecastWeatherByCityName(city, withCount: 7) { (error, responseDictionary) in
             
+            print("dailyForecastWeatherByCityName:\(responseDictionary)")
         }
+        //
+        //        openWeatherAppObject.dailyForecastWeatherByCoordinate(locationCordinate, withCount: 7) { (error, responseDictionary) in
+        //              print("dailyForecastWeatherByCoordinate:\(responseDictionary)")
+        //        }
+        //        
+        //        openWeatherAppObject.searchForCityName(city) { (error, responseDictionary) in
+        //            
+        //             print("searchForCityName:\(responseDictionary)")
+        //        }
     }
     
 }

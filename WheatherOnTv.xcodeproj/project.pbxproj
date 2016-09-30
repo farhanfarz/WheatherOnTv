@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A24DE621D9A34FA0038D4A8 /* WTLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A24DE611D9A34FA0038D4A8 /* WTLocationManager.swift */; };
 		7A2509A91D704E0700625177 /* OpenWeatherMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2509A81D704E0700625177 /* OpenWeatherMap.m */; };
 		7A2509AB1D7050DD00625177 /* WTMainLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2509AA1D7050DD00625177 /* WTMainLocationViewController.swift */; };
 		7A60C7F31D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60C7F21D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A24DE611D9A34FA0038D4A8 /* WTLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTLocationManager.swift; sourceTree = "<group>"; };
 		7A2509A61D704E0600625177 /* WheatherOnTv-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WheatherOnTv-Bridging-Header.h"; sourceTree = "<group>"; };
 		7A2509A71D704E0700625177 /* OpenWeatherMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWeatherMap.h; sourceTree = "<group>"; };
 		7A2509A81D704E0700625177 /* OpenWeatherMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherMap.m; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				7A78EE591D65BFCB004FC738 /* ViewController.swift */,
 				7A2509AA1D7050DD00625177 /* WTMainLocationViewController.swift */,
 				7A89E5651D7D9CD3007766D5 /* WTLocationSearchViewController.swift */,
+				7A24DE611D9A34FA0038D4A8 /* WTLocationManager.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				7AC919EC1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift in Sources */,
 				7A60C7F51D6B2BE1009F7B10 /* WTCornerRadius.swift in Sources */,
 				7A937FF01D9117B300C3F64A /* WeatherLocation.swift in Sources */,
+				7A24DE621D9A34FA0038D4A8 /* WTLocationManager.swift in Sources */,
 				7A78EE5D1D65BFCB004FC738 /* WheatherOnTv.xcdatamodeld in Sources */,
 				7A60C7F31D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift in Sources */,
 			);
