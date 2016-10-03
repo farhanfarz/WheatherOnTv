@@ -39,7 +39,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     @IBOutlet weak var getCityDetailsButton: UIButton!
 
     var arrayOfTime : [String]?
-    var arrayOfWeeks : [String] = []
+    var arrayOfWeeks : [NSDate] = []
     var city : String?
     
     var locationManager: CLLocationManager = CLLocationManager()
@@ -65,6 +65,8 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        purgeAllData()
+        
         openWeatherAppObject = OpenWeatherMap(APIKey: apiKey)
         
         openWeatherAppObject.setApiVersion("2.5")
@@ -78,13 +80,19 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         weekCollectionView.delegate = self
         weekCollectionView.dataSource = self
         
-        arrayOfWeeks = ["Monday","Tuesday","Wendesday","Thursday","Friday","Saturday","Sunday"]
-//        arrayOfTime = ["9.00 am ","10.00 pm","11.00 pm","12.00 pm","8.00 pm","12.00 pm","1.00 pm"]
+        currentDate = NSDate()
+        let calender = NSCalendar.currentCalendar()
+        let offset = NSDateComponents()
+        arrayOfWeeks = [currentDate!]
+        
+        for i in 1...6 {
+            offset.day = i
+            let nextDay = calender.dateByAddingComponents(offset, toDate: currentDate!, options: .WrapComponents)
+            arrayOfWeeks.append(nextDay!)
+        }
         
         timeFormatter.dateStyle = .NoStyle
         timeFormatter.timeStyle = .MediumStyle
-        
-        currentDate = NSDate()
         
         if let locationCord = locationCordinate {
             
@@ -98,6 +106,35 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                 
             }
             
+        }
+        
+    }
+    
+    func purgeAllData() {
+        
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        
+        let myPersistentStoreCoordinator = (UIApplication.sharedApplication().delegate as! AppDelegate).persistentStoreCoordinator
+        
+        let fetchRequestWeatherSearch = NSFetchRequest(entityName: "WeatherSearch")
+        let fetchRequestWeatherTemp = NSFetchRequest(entityName: "WeatherTemperature")
+        let fetchRequestWeatherInfo = NSFetchRequest(entityName: "WeatherInfo")
+        let fetchRequestWeatherForeCast = NSFetchRequest(entityName: "WeatherForecast")
+        
+        let deleteRequestWeatherSearch = NSBatchDeleteRequest(fetchRequest: fetchRequestWeatherSearch)
+        let deleteRequestWeatherTemp = NSBatchDeleteRequest(fetchRequest: fetchRequestWeatherTemp)
+        let deleteRequestWeatherInfo = NSBatchDeleteRequest(fetchRequest: fetchRequestWeatherInfo)
+        let deleteRequestWeatherForeCast = NSBatchDeleteRequest(fetchRequest: fetchRequestWeatherForeCast)
+        
+        do {
+            
+            try myPersistentStoreCoordinator.executeRequest(deleteRequestWeatherSearch, withContext: managedObjectContext)
+            try myPersistentStoreCoordinator.executeRequest(deleteRequestWeatherTemp, withContext: managedObjectContext)
+            try myPersistentStoreCoordinator.executeRequest(deleteRequestWeatherInfo, withContext: managedObjectContext)
+            try myPersistentStoreCoordinator.executeRequest(deleteRequestWeatherForeCast, withContext: managedObjectContext)
+            
+        } catch let error as NSError {
+            // TODO: handle the error
         }
         
     }
@@ -203,43 +240,43 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     
     func findWeatherSearchObjectForResponseObject(responseDictionary:[NSObject:AnyObject]?) -> WeatherSearch {
         
-        var weatherSearch:WeatherSearch?
+        let weatherSearch = WeatherSearch.createWithDictionary(responseDictionary!)!
         
-        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        
-        if let entityDescription =
-            NSEntityDescription.entityForName("WeatherSearch",
-                                              inManagedObjectContext: managedObjectContext) {
-            
-            let request = NSFetchRequest()
-            
-            request.entity = entityDescription
-            
-            let pred = NSPredicate(format: "(%K LIKE %@)", "name","\(responseDictionary!["name"]!)")
-            
-            request.predicate = pred
-            
-            do {
-                var objects = try managedObjectContext.executeFetchRequest(request)
-                
-                if objects.count > 0 {
-                    weatherSearch = objects[0] as? WeatherSearch
-                    
-                } else {
-                    
-                    weatherSearch = WeatherSearch.createWithDictionary(responseDictionary!)!
-                    
-                }
-                
-            }catch {
-                
-            }
-            
-        }
-        
-        
-        
-        return weatherSearch!
+//        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+//        
+//        if let entityDescription =
+//            NSEntityDescription.entityForName("WeatherSearch",
+//                                              inManagedObjectContext: managedObjectContext) {
+//            
+//            let request = NSFetchRequest()
+//            
+//            request.entity = entityDescription
+//            
+//            let pred = NSPredicate(format: "(%K LIKE %@)", "name","\(responseDictionary!["name"]!)")
+//            
+//            request.predicate = pred
+//            
+//            do {
+//                var objects = try managedObjectContext.executeFetchRequest(request)
+//                
+//                if objects.count > 0 {
+//                    weatherSearch = objects[0] as? WeatherSearch
+//                    
+//                } else {
+//                    
+//                    weatherSearch = WeatherSearch.createWithDictionary(responseDictionary!)!
+//                    
+//                }
+//                
+//            }catch {
+//                
+//            }
+//            
+//        }
+//        
+//        
+//        
+        return weatherSearch
     }
     
     func customizeWithWeatherSearch(search:WeatherSearch) {
@@ -252,15 +289,13 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         
         let weatherTemp:WeatherTemperature = WeatherTemperature.createWithDictionary(responseDictionary!["main"] as! [NSObject:AnyObject])!
         
-        
-        
         return weatherTemp
 
     }
     
     func customizeWithWeatherTemperature(weatherTemperaTure:WeatherTemperature) {
         
-        self.degreeLabel.text = weatherTemperaTure.temp
+        self.degreeLabel.text = weatherTemperaTure.temp! + "°C"
 
         self.maximumDegree.text = "Maximum: \(weatherTemperaTure.temp_max!)"
         
@@ -301,28 +336,26 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                 
                 let weatherSearch:WeatherSearch = findWeatherSearchObjectForResponseObject(foreCastDictionary)
                 
-                weatherSearch.tempInfo = findTempInfoObjectForResponseObject(foreCastDictionary["main"] as? [NSObject:AnyObject])
+                weatherSearch.tempInfo = findTempInfoObjectForResponseObject(foreCastDictionary)
                 
-                weatherSearch.mainInfo = findMainInfoWithResponseObject(foreCastDictionary["weather"] as? [NSObject:AnyObject])
+                weatherSearch.mainInfo = findMainInfoWithResponseObject(foreCastDictionary)
                 
                 foreCast?.addListObject(weatherSearch)
             }
+            
+            self.getTimeLinesForDate(currentDate!)
+            
         }
         
     }
     
-    func getDayOfWeek(today:String)->Int? {
+    func getDayOfWeek(date:NSDate) -> Int? {
         
-        let formatter  = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        if let todayDate = formatter.dateFromString(today) {
-            let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-            let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
-            let weekDay = myComponents.weekday
-            return weekDay
-        } else {
-            return nil
-        }
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let myComponents = myCalendar.components(.Weekday, fromDate: date)
+        let weekDay = myComponents.weekday
+        return weekDay
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -341,7 +374,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         
         if collectionView == timeCollectionView{
             
-            return arrayOfTime!.count
+            return arrayWeatherSearchResultsInSelectedDay.count
         }
         return arrayOfWeeks.count
     }
@@ -363,7 +396,19 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionOfWeeksIdentifier", forIndexPath: indexPath) as! WTWeeksCollectionViewCell
         
-        cell.weekDaysLabel.text = arrayOfWeeks[indexPath.row]
+        if (arrayOfWeeks[indexPath.row].compare(currentDate!) == .OrderedSame) {
+            
+            cell.weekDaysLabel.textColor = UIColor.greenColor()
+            
+        }else {
+            
+            cell.weekDaysLabel.textColor = UIColor.whiteColor()
+            
+        }
+        
+        let indexWeekDay = getDayOfWeek(arrayOfWeeks[indexPath.row])!
+
+        cell.weekDaysLabel.text = timeFormatter.weekdaySymbols[indexWeekDay-1]
         
         return cell
         
@@ -380,35 +425,44 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
             
         }else {
             
-            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! WTWeeksCollectionViewCell
+            self.getTimeLinesForDate(arrayOfWeeks[indexPath.row])
             
-            let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        }
+    }
+    
+    
+    func getTimeLinesForDate(date:NSDate) {
+        
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        
+        if let entityDescription =
+            NSEntityDescription.entityForName("WeatherSearch",
+                                              inManagedObjectContext: managedObjectContext) {
             
-            if let entityDescription =
-                NSEntityDescription.entityForName("WeatherSearch",
-                                                  inManagedObjectContext: managedObjectContext) {
+            let request = NSFetchRequest()
+            
+            request.entity = entityDescription
+            
+            let pred = predicateForDayFromDate(date)
+            
+            request.predicate = pred
+            
+            do {
                 
-                let request = NSFetchRequest()
+                arrayWeatherSearchResultsInSelectedDay = try managedObjectContext.executeFetchRequest(request) as! [WeatherSearch]
                 
-                request.entity = entityDescription
+                timeCollectionView.reloadData()
                 
-                let pred = NSPredicate(format: "(%K LIKE %@)", "weekday",cell.weekDaysLabel.text!)
+                currentDate = date
                 
-                request.predicate = pred
+                weekCollectionView.reloadData()
                 
-                do {
-                    
-                    arrayWeatherSearchResultsInSelectedDay = try managedObjectContext.executeFetchRequest(request) as! [WeatherSearch]
-
-                    timeCollectionView.reloadData()
-                    
-                }catch {
-                    
-                }
+            }catch {
                 
             }
             
         }
+        
     }
     
     func predicateForDayFromDate(date: NSDate) -> NSPredicate {
