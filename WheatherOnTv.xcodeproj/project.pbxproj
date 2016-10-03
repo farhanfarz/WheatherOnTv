@@ -20,9 +20,15 @@
 		7A78EE6D1D65BFCB004FC738 /* WheatherOnTvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78EE6C1D65BFCB004FC738 /* WheatherOnTvTests.swift */; };
 		7A78EE781D65BFCB004FC738 /* WheatherOnTvUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78EE771D65BFCB004FC738 /* WheatherOnTvUITests.swift */; };
 		7A89E5661D7D9CD3007766D5 /* WTLocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A89E5651D7D9CD3007766D5 /* WTLocationSearchViewController.swift */; };
-		7A937FEF1D9117B300C3F64A /* WeatherLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A937FED1D9117B300C3F64A /* WeatherLocation+CoreDataProperties.swift */; };
-		7A937FF01D9117B300C3F64A /* WeatherLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A937FEE1D9117B300C3F64A /* WeatherLocation.swift */; };
 		7AC919EC1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC919EB1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift */; };
+		DFE8EAEF1DA297D800ACADBC /* WeatherInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE8EAE71DA297D800ACADBC /* WeatherInfo+CoreDataProperties.swift */; };
+		DFE8EAF01DA297D800ACADBC /* WeatherInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE8EAE81DA297D800ACADBC /* WeatherInfo.swift */; };
+		DFE8EAF11DA297D800ACADBC /* WeatherTemperature+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE8EAE91DA297D800ACADBC /* WeatherTemperature+CoreDataProperties.swift */; };
+		DFE8EAF21DA297D800ACADBC /* WeatherTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE8EAEA1DA297D800ACADBC /* WeatherTemperature.swift */; };
+		DFE8EAF31DA297D800ACADBC /* WeatherSearch+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE8EAEB1DA297D800ACADBC /* WeatherSearch+CoreDataProperties.swift */; };
+		DFE8EAF41DA297D800ACADBC /* WeatherSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE8EAEC1DA297D800ACADBC /* WeatherSearch.swift */; };
+		DFE8EAF51DA297D800ACADBC /* WeatherForecast+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE8EAED1DA297D800ACADBC /* WeatherForecast+CoreDataProperties.swift */; };
+		DFE8EAF61DA297D800ACADBC /* WeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE8EAEE1DA297D800ACADBC /* WeatherForecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,9 +70,15 @@
 		7A78EE771D65BFCB004FC738 /* WheatherOnTvUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheatherOnTvUITests.swift; sourceTree = "<group>"; };
 		7A78EE791D65BFCB004FC738 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A89E5651D7D9CD3007766D5 /* WTLocationSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTLocationSearchViewController.swift; sourceTree = "<group>"; };
-		7A937FED1D9117B300C3F64A /* WeatherLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WeatherLocation+CoreDataProperties.swift"; path = "Views/WeatherLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7A937FEE1D9117B300C3F64A /* WeatherLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherLocation.swift; path = Views/WeatherLocation.swift; sourceTree = "<group>"; };
 		7AC919EB1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTTimeCollectionViewCell.swift; sourceTree = "<group>"; };
+		DFE8EAE71DA297D800ACADBC /* WeatherInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WeatherInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DFE8EAE81DA297D800ACADBC /* WeatherInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherInfo.swift; sourceTree = "<group>"; };
+		DFE8EAE91DA297D800ACADBC /* WeatherTemperature+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WeatherTemperature+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DFE8EAEA1DA297D800ACADBC /* WeatherTemperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherTemperature.swift; sourceTree = "<group>"; };
+		DFE8EAEB1DA297D800ACADBC /* WeatherSearch+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WeatherSearch+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DFE8EAEC1DA297D800ACADBC /* WeatherSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherSearch.swift; sourceTree = "<group>"; };
+		DFE8EAED1DA297D800ACADBC /* WeatherForecast+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WeatherForecast+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DFE8EAEE1DA297D800ACADBC /* WeatherForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherForecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,7 +168,7 @@
 		7A78EE561D65BFCB004FC738 /* WheatherOnTv */ = {
 			isa = PBXGroup;
 			children = (
-				7A937FEC1D91178D00C3F64A /* Model */,
+				DFE8EAE61DA2948F00ACADBC /* Model */,
 				7A60C7F01D6B0828009F7B10 /* Controller */,
 				7A60C7F11D6B0828009F7B10 /* Views */,
 				7A2509A51D704DE300625177 /* ThirdParties */,
@@ -195,13 +207,19 @@
 			name = WheatherSwift;
 			sourceTree = "<group>";
 		};
-		7A937FEC1D91178D00C3F64A /* Model */ = {
+		DFE8EAE61DA2948F00ACADBC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7A937FED1D9117B300C3F64A /* WeatherLocation+CoreDataProperties.swift */,
-				7A937FEE1D9117B300C3F64A /* WeatherLocation.swift */,
+				DFE8EAE71DA297D800ACADBC /* WeatherInfo+CoreDataProperties.swift */,
+				DFE8EAE81DA297D800ACADBC /* WeatherInfo.swift */,
+				DFE8EAE91DA297D800ACADBC /* WeatherTemperature+CoreDataProperties.swift */,
+				DFE8EAEA1DA297D800ACADBC /* WeatherTemperature.swift */,
+				DFE8EAEB1DA297D800ACADBC /* WeatherSearch+CoreDataProperties.swift */,
+				DFE8EAEC1DA297D800ACADBC /* WeatherSearch.swift */,
+				DFE8EAED1DA297D800ACADBC /* WeatherForecast+CoreDataProperties.swift */,
+				DFE8EAEE1DA297D800ACADBC /* WeatherForecast.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,14 +355,20 @@
 				7A78EE5A1D65BFCB004FC738 /* ViewController.swift in Sources */,
 				7A89E5661D7D9CD3007766D5 /* WTLocationSearchViewController.swift in Sources */,
 				7A2509AB1D7050DD00625177 /* WTMainLocationViewController.swift in Sources */,
-				7A937FEF1D9117B300C3F64A /* WeatherLocation+CoreDataProperties.swift in Sources */,
 				7A2509A91D704E0700625177 /* OpenWeatherMap.m in Sources */,
+				DFE8EAF41DA297D800ACADBC /* WeatherSearch.swift in Sources */,
 				7A78EE581D65BFCB004FC738 /* AppDelegate.swift in Sources */,
+				DFE8EAF11DA297D800ACADBC /* WeatherTemperature+CoreDataProperties.swift in Sources */,
 				7AC919EC1D6C7A1200B453E4 /* WTTimeCollectionViewCell.swift in Sources */,
+				DFE8EAF21DA297D800ACADBC /* WeatherTemperature.swift in Sources */,
+				DFE8EAF61DA297D800ACADBC /* WeatherForecast.swift in Sources */,
 				7A60C7F51D6B2BE1009F7B10 /* WTCornerRadius.swift in Sources */,
-				7A937FF01D9117B300C3F64A /* WeatherLocation.swift in Sources */,
+				DFE8EAEF1DA297D800ACADBC /* WeatherInfo+CoreDataProperties.swift in Sources */,
+				DFE8EAF01DA297D800ACADBC /* WeatherInfo.swift in Sources */,
 				7A24DE621D9A34FA0038D4A8 /* WTLocationManager.swift in Sources */,
+				DFE8EAF51DA297D800ACADBC /* WeatherForecast+CoreDataProperties.swift in Sources */,
 				7A78EE5D1D65BFCB004FC738 /* WheatherOnTv.xcdatamodeld in Sources */,
+				DFE8EAF31DA297D800ACADBC /* WeatherSearch+CoreDataProperties.swift in Sources */,
 				7A60C7F31D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

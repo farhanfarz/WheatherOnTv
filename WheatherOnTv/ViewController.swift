@@ -8,27 +8,23 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class ViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet weak var cityNameTextField: UITextField!
     
-    
-    
-    
     @IBOutlet weak var weekCollectionView: UICollectionView!
     
     @IBOutlet weak var timeCollectionView: UICollectionView!
     
-    
     @IBOutlet weak var dayOfWeekLabel: UILabel!
     
-    
     @IBOutlet weak var weatherTypeImage: UIImageView!
+    
     @IBOutlet weak var hourMinuteMeridianLabel: UILabel!
     
     @IBOutlet weak var locationLabel: UILabel!
-    
     
     @IBOutlet weak var cloudType: UILabel!
     
@@ -36,38 +32,46 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     
     @IBOutlet weak var maximumDegree: UILabel!
     
-    
     @IBOutlet weak var minimumDegree: UILabel!
-    
     
     @IBOutlet weak var weatherDetailsView: UIView!
     
     @IBOutlet weak var getCityDetailsButton: UIButton!
-    
-    var locationToBeDisplayedField : String?
+
     var arrayOfTime : [String]?
-    var arrayOfWeeks : [String] = []
+    var arrayOfWeeks : [NSDate] = []
     var city : String?
-    private var locationTitle:String = ""
-    private var locationLatitude:String = ""
-    private var locationLongitude:String = ""
-    
     
     var locationManager: CLLocationManager = CLLocationManager()
-    var startLocation: CLLocation!
     
-    
+    var locationCordinate:CLLocationCoordinate2D?
+
     var timer : NSTimer!
     
     let apiKey:String = "eea1961c530c59ba1c9a9aca79112e3c"
     
     var openWeatherAppObject:OpenWeatherMap!
     
-    var locationCordinate:CLLocationCoordinate2D?
+    var weatherSearch:WeatherSearch?
+    
+    var weatherForeCast:WeatherForecast?
+    
+    var arrayWeatherSearchResultsInSelectedDay:[WeatherSearch] = [WeatherSearch]()
+    
+    let timeFormatter = NSDateFormatter()
+    
+    var currentDate:NSDate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        purgeAllData()
+        
+        openWeatherAppObject = OpenWeatherMap(APIKey: apiKey)
+        
+        openWeatherAppObject.setApiVersion("2.5")
+        openWeatherAppObject.setTemperatureFormat(.Celcius)
+        openWeatherAppObject.setLang("en")
         
         weatherDetailsView.alpha = 0
         timeCollectionView.delegate = self
@@ -76,27 +80,20 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         weekCollectionView.delegate = self
         weekCollectionView.dataSource = self
         
-        self.updateDate()
+        currentDate = NSDate()
+        let calender = NSCalendar.currentCalendar()
+        let offset = NSDateComponents()
+        arrayOfWeeks = [currentDate!]
         
-        self.timer = NSTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateDate), userInfo: nil, repeats: true)
-        
-      //  arrayOfWeeks = ["Monday","Tuesday","Wendesday","Thursday","Friday","Saturday","Sunday"]
-        arrayOfTime = ["9.00 am ","10.00 pm","11.00 pm","12.00 pm","8.00 pm","12.00 pm","1.00 pm"]
-        
-        city = "Cochin"
-        openWeatherAppObject = OpenWeatherMap(APIKey: apiKey)
-        
-        openWeatherAppObject.setApiVersion("2.5")
-        openWeatherAppObject.setTemperatureFormat(.Celcius)
-        openWeatherAppObject.setLang("en")
-//        apiCalls()
-        
-        if let weekday = getDayOfWeek("2014-08-27") {
-            print(weekday)
-        } else {
-            print("bad input")
+        for i in 1...6 {
+            offset.day = i
+            let nextDay = calender.dateByAddingComponents(offset, toDate: currentDate!, options: .WrapComponents)
+            arrayOfWeeks.append(nextDay!)
         }
-       
+        
+        timeFormatter.dateStyle = .NoStyle
+        timeFormatter.timeStyle = .MediumStyle
+        
         if let locationCord = locationCordinate {
             
             UIView.transitionWithView(weatherDetailsView, duration: 1.0, options: .AllowAnimatedContent, animations: {
@@ -105,34 +102,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                 
             }) { (true) in
                 
-                self.openWeatherAppObject.currentWeatherByCoordinate(locationCord) { (error, currentWeatherDictionary) in
-                    
-                    print("currentWeatherByCoordinate:\(currentWeatherDictionary)")
-                    
-                    if error == nil {
-                        
-                        self.customizeWithWeatherInfoDictionary(currentWeatherDictionary)
-                        
-                    }else {
-                        
-                        print(error)
-                    }
-                    
-                }
-                
-                self.openWeatherAppObject.forecastWeatherByCoordinate(locationCord) { (error, responseDictionary) in
-                    
-                    if error == nil {
-                        // UI customisations
-                        
-                        self.customizeForForeCast(responseDictionary)
-                        
-                    }else {
-                        print(error)
-                    }
-                    
-                }
-                
+                self.getWeatherDetailsBasedOnCordinate(locationCord)
                 
             }
             
@@ -140,7 +110,96 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         
     }
     
+    func purgeAllData() {
+        
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        
+        let myPersistentStoreCoordinator = (UIApplication.sharedApplication().delegate as! AppDelegate).persistentStoreCoordinator
+        
+        let fetchRequestWeatherSearch = NSFetchRequest(entityName: "WeatherSearch")
+        let fetchRequestWeatherTemp = NSFetchRequest(entityName: "WeatherTemperature")
+        let fetchRequestWeatherInfo = NSFetchRequest(entityName: "WeatherInfo")
+        let fetchRequestWeatherForeCast = NSFetchRequest(entityName: "WeatherForecast")
+        
+        let deleteRequestWeatherSearch = NSBatchDeleteRequest(fetchRequest: fetchRequestWeatherSearch)
+        let deleteRequestWeatherTemp = NSBatchDeleteRequest(fetchRequest: fetchRequestWeatherTemp)
+        let deleteRequestWeatherInfo = NSBatchDeleteRequest(fetchRequest: fetchRequestWeatherInfo)
+        let deleteRequestWeatherForeCast = NSBatchDeleteRequest(fetchRequest: fetchRequestWeatherForeCast)
+        
+        do {
+            
+            try myPersistentStoreCoordinator.executeRequest(deleteRequestWeatherSearch, withContext: managedObjectContext)
+            try myPersistentStoreCoordinator.executeRequest(deleteRequestWeatherTemp, withContext: managedObjectContext)
+            try myPersistentStoreCoordinator.executeRequest(deleteRequestWeatherInfo, withContext: managedObjectContext)
+            try myPersistentStoreCoordinator.executeRequest(deleteRequestWeatherForeCast, withContext: managedObjectContext)
+            
+        } catch let error as NSError {
+            // TODO: handle the error
+        }
+        
+    }
     
+    func getWeatherDetailsBasedOnCordinate(locationCord:CLLocationCoordinate2D) {
+        
+        self.openWeatherAppObject.currentWeatherByCoordinate(locationCord) { (error, currentWeatherDictionary) in
+            
+            print("currentWeatherByCoordinate:\(currentWeatherDictionary)")
+            
+            if error == nil {
+                
+                self.customizeWithWeatherInfoDictionary(currentWeatherDictionary)
+                
+            }else {
+                
+                print(error)
+            }
+            
+        }
+        
+        self.openWeatherAppObject.forecastWeatherByCoordinate(locationCord) { (error, responseDictionary) in
+            
+            if error == nil {
+                // UI customisations
+                
+                self.customizeForForeCast(responseDictionary)
+                
+            }else {
+                print(error)
+            }
+            
+        }
+        
+    }
+    
+    func getWeatherBasedOnCity() {
+        
+        self.openWeatherAppObject.currentWeatherByCityName(self.city!) { (error, responseDictionary) in
+            
+            if error == nil {
+                
+                self.customizeWithWeatherInfoDictionary(responseDictionary)
+                
+            }else {
+                
+                print(error)
+            }
+            
+        }
+        
+        self.openWeatherAppObject.forecastWeatherByCityName(self.city!) { (error, responseDictionary) in
+            
+            if error == nil {
+                // UI customisations
+                
+                self.customizeForForeCast(responseDictionary)
+                
+            }else {
+                print(error)
+            }
+            
+        }
+        
+    }
     
     @IBAction func getCityWeatherData(sender: UIButton) {
         
@@ -151,40 +210,9 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         }) { (true) in
             
             self.city = self.cityNameTextField.text
-            print(self.city!)
-            self.openWeatherAppObject.currentWeatherByCityName(self.city!) { (error, responseDictionary) in
-                
-                if error == nil {
-                    
-                    self.customizeWithWeatherInfoDictionary(responseDictionary)
-                    
-                }else {
-                    
-                    print(error)
-                }
-
-                
-                
-            }
             
-            self.openWeatherAppObject.forecastWeatherByCityName(self.city!) { (error, responseDictionary) in
-                
-                if error == nil {
-                    // UI customisations
-                    
-                    self.customizeForForeCast(responseDictionary)
-                    
-                }else {
-                    print(error)
-                }
-                
-            }
-            
-            
-            
-            
+            self.getWeatherBasedOnCity()
         }
-        
         
     }
     
@@ -193,68 +221,107 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         // UI customisations
         print(responseDictionary)
         
-        if let cityName = responseDictionary!["name"] as? String {
-            
-            self.locationLabel.text = cityName
-            
-        }
+        let weatherSearch:WeatherSearch = findWeatherSearchObjectForResponseObject(responseDictionary)
         
-        if let temperatureDetails = responseDictionary!["main"] as? NSDictionary {
-            
-            if let tempData = temperatureDetails["temp"] as? String {
-                
-                self.degreeLabel.text = tempData
-                
+        weatherSearch.tempInfo = findTempInfoObjectForResponseObject(responseDictionary)
+        
+        weatherSearch.mainInfo = findMainInfoWithResponseObject(responseDictionary)
+
+        customizeAllTheViewsWithWeatherSearch(weatherSearch)
+    }
+
+    func customizeAllTheViewsWithWeatherSearch(weatherSearch:WeatherSearch) {
+        
+        customizeWithWeatherSearch(weatherSearch)
+        customizeWithWeatherTemperature(weatherSearch.tempInfo!)
+        customizeWithWeatherInfo(weatherSearch.mainInfo!)
+        
+    }
+    
+    func findWeatherSearchObjectForResponseObject(responseDictionary:[NSObject:AnyObject]?) -> WeatherSearch {
+        
+        let weatherSearch = WeatherSearch.createWithDictionary(responseDictionary!)!
+        
+//        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+//        
+//        if let entityDescription =
+//            NSEntityDescription.entityForName("WeatherSearch",
+//                                              inManagedObjectContext: managedObjectContext) {
+//            
+//            let request = NSFetchRequest()
+//            
+//            request.entity = entityDescription
+//            
+//            let pred = NSPredicate(format: "(%K LIKE %@)", "name","\(responseDictionary!["name"]!)")
+//            
+//            request.predicate = pred
+//            
+//            do {
+//                var objects = try managedObjectContext.executeFetchRequest(request)
+//                
+//                if objects.count > 0 {
+//                    weatherSearch = objects[0] as? WeatherSearch
+//                    
+//                } else {
+//                    
+//                    weatherSearch = WeatherSearch.createWithDictionary(responseDictionary!)!
+//                    
+//                }
+//                
+//            }catch {
+//                
+//            }
+//            
+//        }
+//        
+//        
+//        
+        return weatherSearch
+    }
+    
+    func customizeWithWeatherSearch(search:WeatherSearch) {
+        
+        self.locationLabel.text = search.name
+        
+    }
+    
+    func findTempInfoObjectForResponseObject(responseDictionary:[NSObject:AnyObject]?) -> WeatherTemperature {
+        
+        let weatherTemp:WeatherTemperature = WeatherTemperature.createWithDictionary(responseDictionary!["main"] as! [NSObject:AnyObject])!
+        
+        return weatherTemp
+
+    }
+    
+    func customizeWithWeatherTemperature(weatherTemperaTure:WeatherTemperature) {
+        
+        self.degreeLabel.text = weatherTemperaTure.temp! + "°C"
+
+        self.maximumDegree.text = "Maximum: \(weatherTemperaTure.temp_max!)"
+        
+        self.minimumDegree.text = "Minimum: \(weatherTemperaTure.temp_min!)"
+        
+    }
+    
+    func findMainInfoWithResponseObject(responseDictionary:[NSObject:AnyObject]?) -> WeatherInfo {
+        
+        let weatherInfo:WeatherInfo = WeatherInfo.createWithDictionary(responseDictionary!["weather"]![0] as! [NSObject:AnyObject])!
+        
+        return weatherInfo
+        
+    }
+    
+    func customizeWithWeatherInfo(weatherInfo:WeatherInfo) {
+        
+        self.cloudType.text = weatherInfo.detailedDescription
+ 
+        let weatherIcon = "http://openweathermap.org/img/w/\(weatherInfo.icon!).png"
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            if let data = NSData(contentsOfURL: NSURL(string: weatherIcon)!) {
+                self.weatherTypeImage.image = UIImage(data: data)
             }
             
-            if let tempData = temperatureDetails["temp"] as? Double {
-                
-                self.degreeLabel.text = String(format: "%.1f",tempData)
-                
-            }
-            
-            if let tempData = temperatureDetails["temp_max"] as? Double {
-                
-                let dataToBeRounded = tempData
-                let roundedData = Double(round(1000*dataToBeRounded)/1000)
-                self.maximumDegree.text = "Maximum: \(roundedData)" + "  ,  "
-                
-            }
-            if let tempData = temperatureDetails["temp_min"] as? Double {
-                let dataToBeRounded = tempData
-                let roundedData = Double(round(1000*dataToBeRounded)/1000)
-                
-                self.minimumDegree.text = "Minimum: \(roundedData)"
-                
-            }
-            
-        }
-        if let weatherTypeArray = responseDictionary!["weather"] as? NSArray {
-            
-            for weatherDict in weatherTypeArray {
-                
-                if let weatherTypeData = weatherDict["description"] as? String {
-                    
-                    self.cloudType.text = weatherTypeData
-                }
-                
-                if let weatherTypeImage = weatherDict["icon"] as? String {
-                    
-                    let weatherIcon = "http://openweathermap.org/img/w/\(weatherTypeImage).png"
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        if let data = NSData(contentsOfURL: NSURL(string: weatherIcon)!) {
-                            self.weatherTypeImage.image = UIImage(data: data)
-                        }
-                        
-                    })
-                    
-                    
-                }
-                
-                
-            }
-            
-        }
+        })
         
     }
     
@@ -262,71 +329,38 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         
         if responseDictionary != nil {
             print("\nForeCast: "+"\(responseDictionary)")
+
+            let foreCast = WeatherForecast.createWithDictionary(responseDictionary!);
             
-            
-            if let dateTimeOfWeek = responseDictionary!["dt_txt"] as? String {
+            for foreCastDictionary in responseDictionary!["list"] as! [[NSObject:AnyObject]] {
                 
+                let weatherSearch:WeatherSearch = findWeatherSearchObjectForResponseObject(foreCastDictionary)
                 
-                let dayOfWeek = "\(self.getDayOfWeek(dateTimeOfWeek))"
-                self.arrayOfWeeks.append(dayOfWeek)
+                weatherSearch.tempInfo = findTempInfoObjectForResponseObject(foreCastDictionary)
+                
+                weatherSearch.mainInfo = findMainInfoWithResponseObject(foreCastDictionary)
+                
+                foreCast?.addListObject(weatherSearch)
             }
+            
+            self.getTimeLinesForDate(currentDate!)
+            
         }
         
     }
     
-    func getDayOfWeek(today:String)->Int? {
+    func getDayOfWeek(date:NSDate) -> Int? {
         
-        let formatter  = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        if let todayDate = formatter.dateFromString(today) {
-            let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-            let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
-            let weekDay = myComponents.weekday
-            return weekDay
-        } else {
-            return nil
-        }
-    }
-    
-    func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(delay * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(), closure)
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let myComponents = myCalendar.components(.Weekday, fromDate: date)
+        let weekDay = myComponents.weekday
+        return weekDay
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func updateDate() {
-        let date = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        
-        let components = calendar.components([.Year,.Month,.Day,.Hour,.Minute,.Second,.Weekday], fromDate: date)
-        if components.hour >= 19 || components.hour <= 6 {
-            print("It's night shift")
-        }
-        else {
-            print("It's day shift")
-        }
-        
-        let monthName = NSDateFormatter().monthSymbols[(components.month - 1)].capitalizedString
-        let dayWeekName = NSDateFormatter().weekdaySymbols[(components.weekday - 1)]
-        
-        let year =  components.year
-        
-        let timeFormatter = NSDateFormatter()
-        timeFormatter.dateStyle = .NoStyle
-        timeFormatter.timeStyle = .ShortStyle
-        hourMinuteMeridianLabel.text = timeFormatter.stringFromDate(NSDate()).lowercaseString
-        
-        dayOfWeekLabel.text =  String(format: "%02ld", Int(components.day)) + " " + monthName + "," + dayWeekName  + " " + "\(year)"
-        
-        
     }
     
     
@@ -340,7 +374,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         
         if collectionView == timeCollectionView{
             
-            return arrayOfTime!.count
+            return arrayWeatherSearchResultsInSelectedDay.count
         }
         return arrayOfWeeks.count
     }
@@ -351,72 +385,98 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
             
             let timeCell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionOfTimesIdentifier", forIndexPath: indexPath) as! WTTimeCollectionViewCell
             
-            timeCell.timeLabel.text = arrayOfTime![indexPath.row]
+            let weatherSearchItem:WeatherSearch = arrayWeatherSearchResultsInSelectedDay[indexPath.row]
+            
+            timeCell.timeLabel.text = timeFormatter.stringFromDate(weatherSearchItem.dateTime!)
+            
+//            timeCell.timeLabel.text = arrayOfTime![indexPath.row]
             return timeCell
             
         }
+        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionOfWeeksIdentifier", forIndexPath: indexPath) as! WTWeeksCollectionViewCell
         
-        cell.weekDaysLabel.text = arrayOfWeeks[indexPath.row]
+        if (arrayOfWeeks[indexPath.row].compare(currentDate!) == .OrderedSame) {
+            
+            cell.weekDaysLabel.textColor = UIColor.greenColor()
+            
+        }else {
+            
+            cell.weekDaysLabel.textColor = UIColor.whiteColor()
+            
+        }
+        
+        let indexWeekDay = getDayOfWeek(arrayOfWeeks[indexPath.row])!
+
+        cell.weekDaysLabel.text = timeFormatter.weekdaySymbols[indexWeekDay-1]
+        
         return cell
         
         
     }
     
-}
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        if collectionView == timeCollectionView {
+            
+            let weatherSearchItem:WeatherSearch = arrayWeatherSearchResultsInSelectedDay[indexPath.row]
 
-extension ViewController {
-    
-    func apiCalls() {
-        
-        // Method 1:
-        
-        
-        
-        //
-        
-        //        openWeatherAppObject.currentWeatherByCityId("258730") { (error, responseDictionaryData) in
-        //
-        //        }
-        
-        
-        //        let lat = 51.509865
-        //        let lon = -0.118092
-        //        let locationCordinate = CLLocationCoordinate2DMake(lat, lon)
-        //
-        //
-        //
-        //        openWeatherAppObject.currentWeatherByCoordinate(locationCordinate) { (error, currentWeatherDictionary) in
-        //
-        //
-        //            print(currentWeatherDictionary)
-        //        }
-        
-        openWeatherAppObject.forecastWeatherByCityName(city) { (error, responseDictionary) in
+            customizeAllTheViewsWithWeatherSearch(weatherSearchItem)
             
-            print("forecastWeatherByCityName:\(responseDictionary)")
+        }else {
+            
+            self.getTimeLinesForDate(arrayOfWeeks[indexPath.row])
             
         }
-        //
-        //        openWeatherAppObject.forecastWeatherByCoordinate(locationCordinate) { (error, responseDictionary) in
-        //
-        //              print("forecastWeatherByCoordinate:\(responseDictionary)")
-        //        }
-        //
-        openWeatherAppObject.dailyForecastWeatherByCityName(city, withCount: 7) { (error, responseDictionary) in
-            
-            print("dailyForecastWeatherByCityName:\(responseDictionary)")
-        }
-        //
-        //        openWeatherAppObject.dailyForecastWeatherByCoordinate(locationCordinate, withCount: 7) { (error, responseDictionary) in
-        //              print("dailyForecastWeatherByCoordinate:\(responseDictionary)")
-        //        }
-        //
-        //        openWeatherAppObject.searchForCityName(city) { (error, responseDictionary) in
-        //
-        //             print("searchForCityName:\(responseDictionary)")
-        //        }
     }
     
+    
+    func getTimeLinesForDate(date:NSDate) {
+        
+        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        
+        if let entityDescription =
+            NSEntityDescription.entityForName("WeatherSearch",
+                                              inManagedObjectContext: managedObjectContext) {
+            
+            let request = NSFetchRequest()
+            
+            request.entity = entityDescription
+            
+            let pred = predicateForDayFromDate(date)
+            
+            request.predicate = pred
+            
+            do {
+                
+                arrayWeatherSearchResultsInSelectedDay = try managedObjectContext.executeFetchRequest(request) as! [WeatherSearch]
+                
+                timeCollectionView.reloadData()
+                
+                currentDate = date
+                
+                weekCollectionView.reloadData()
+                
+            }catch {
+                
+            }
+            
+        }
+        
+    }
+    
+    func predicateForDayFromDate(date: NSDate) -> NSPredicate {
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        let components = calendar!.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: date)
+        components.hour = 00
+        components.minute = 00
+        components.second = 00
+        let startDate = calendar!.dateFromComponents(components)
+        components.hour = 23
+        components.minute = 59
+        components.second = 59
+        let endDate = calendar!.dateFromComponents(components)
+        
+        return NSPredicate(format: "dateTime >= %@ AND dateTime =< %@", argumentArray: [startDate!, endDate!])
+    }
 }
-

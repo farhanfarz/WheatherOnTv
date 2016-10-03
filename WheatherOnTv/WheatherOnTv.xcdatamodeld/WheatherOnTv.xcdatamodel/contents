@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Automatic">
-    <entity name="WeatherLocation" representedClassName=".WeatherLocation" syncable="YES">
-        <attribute name="city_id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="coordinates_lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="coordinates_lon" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G1004" minimumToolsVersion="Automatic">
+    <entity name="WeatherForecast" representedClassName=".WeatherForecast" syncable="YES">
+        <relationship name="weatherResults" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeatherSearch" syncable="YES"/>
+    </entity>
+    <entity name="WeatherInfo" representedClassName=".WeatherInfo" syncable="YES">
+        <attribute name="detailedDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="main" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="WeatherSearch" representedClassName=".WeatherSearch" syncable="YES">
+        <attribute name="cordinateLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cordinateLongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="mainInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherInfo" syncable="YES"/>
+        <relationship name="tempInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherTemperature" syncable="YES"/>
+    </entity>
+    <entity name="WeatherTemperature" representedClassName=".WeatherTemperature" syncable="YES">
+        <attribute name="humidity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pressure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="temp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="temp_max" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="temp_min" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="WeatherLocation" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="WeatherInfo" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="WeatherTemperature" positionX="-54" positionY="18" width="128" height="120"/>
+        <element name="WeatherSearch" positionX="-36" positionY="54" width="128" height="135"/>
+        <element name="WeatherForecast" positionX="-18" positionY="90" width="128" height="60"/>
     </elements>
 </model>
