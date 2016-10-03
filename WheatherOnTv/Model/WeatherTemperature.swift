@@ -24,11 +24,32 @@ class WeatherTemperature: NSManagedObject {
             
             let weatherTemp = WeatherTemperature(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext)
             
-            weatherTemp.temp = "\(dictionary["temp"] as! Double)"
+            if let tempData = dictionary["temp"] as? Double {
+            
+                weatherTemp.temp = String(format: "%.1f",tempData)
+            
+            }
+            
+            if let tempData = dictionary["temp_max"] as? Double {
+            
+                let dataToBeRounded = tempData
+                let roundedData = Double(round(1000*dataToBeRounded)/1000)
+                weatherTemp.temp_max = "\(roundedData)"
+            
+            }
+            if let tempData = dictionary["temp_min"] as? Double {
+                let dataToBeRounded = tempData
+                let roundedData = Double(round(1000*dataToBeRounded)/1000)
+                
+                weatherTemp.temp_min = "\(roundedData)"
+                
+            }
+            
+//            weatherTemp.temp = "\(dictionary["temp"] as! Double)"
             weatherTemp.pressure = "\(dictionary["pressure"] as! Double)"
             weatherTemp.humidity = "\(dictionary["humidity"] as! Double)"
-            weatherTemp.temp_min = "\(dictionary["temp_min"] as! Double)"
-            weatherTemp.temp_max = "\(dictionary["temp_max"] as! Double)"
+//            weatherTemp.temp_min = "\(dictionary["temp_min"] as! Double)"
+//            weatherTemp.temp_max = "\(dictionary["temp_max"] as! Double)"
 
             do {
                 

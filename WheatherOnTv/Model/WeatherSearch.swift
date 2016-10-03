@@ -24,12 +24,25 @@ class WeatherSearch: NSManagedObject {
             
             let weatherSearch = WeatherSearch(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext)
             
-            weatherSearch.name = "\(dictionary["name"]!)"
+            if let nameString = dictionary["name"] as? String {
+                
+                weatherSearch.name = nameString
+                
+            }
+            
             if (dictionary["coord"] != nil) {
                 
                 weatherSearch.cordinateLatitude = "\(dictionary["coord"]!["lat"]!)"
                 weatherSearch.cordinateLongitude = "\(dictionary["coord"]!["lon"]!)"
                 
+            }
+            
+            if let dateTimeOfWeek = dictionary["dt_txt"] as? String {
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                
+                weatherSearch.dateTime = dateFormatter.dateFromString(dateTimeOfWeek);
             }
             
             do {
