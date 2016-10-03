@@ -45,8 +45,6 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
 
         labelLogoTitle.text = "Weather ON"
         
-        initLocationManager()
-        
         if NSUserDefaults.standardUserDefaults().objectForKey("default_location") != nil {
             self.performSegueWithIdentifier("To_Weather_Page", sender: self)
         }
@@ -70,10 +68,7 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
-//        self.initLocationManager()
-        
+
     }
      //Location Manager helper stuff
     func initLocationManager() {
@@ -83,7 +78,16 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
         locationManager!.delegate = self
         locationManager!.desiredAccuracy = kCLLocationAccuracyBest
         
-//        locationManager!.requestAlwaysAuthorization()
+        if CLLocationManager.locationServicesEnabled(){
+            
+            if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.NotDetermined{
+                locationManager!.requestWhenInUseAuthorization()
+            }
+            else if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse{
+                locationManager!.requestLocation()
+            }
+            
+        }
     }
     
 //    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -101,26 +105,25 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
 ////    func locationManager(manager: CLLocationManager, didFailWithError error: NSError?) {
 ////    }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError?) {
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         locationManager!.stopUpdatingLocation()
-        if ((error) != nil) {
-            if (seenError == false) {
-                seenError = true
-                print(error)
-            }
-        }
+        
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if (locationFixAchieved == false) {
-            locationFixAchieved = true
-            var locationArray = locations as NSArray
-            var locationObj = locationArray.lastObject as! CLLocation
-            var coord = locationObj.coordinate
+        
+        if let locationObj = locations.last {
+            let coord = locationObj.coordinate
             
             print(coord.latitude)
             print(coord.longitude)
+            
+            let detailController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("detailedViewController") as? ViewController
+            detailController?.locationCordinate = coord
+            navigationController?.pushViewController(detailController!, animated: true)
         }
+        
+        locationManager!.stopUpdatingLocation()
     }
 
     func locationManager(manager: CLLocationManager,  didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -149,44 +152,10 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
 
     @IBAction func didTapGPSButton(sender: UIButton) {
         
-//     let detailController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("detailedViewController") as? ViewController
-//        navigationController?.pushViewController(detailController!, animated: true)
-        
-        
-        let placemark = WTLocationManager.sharedLocationManager.currentPlacemark
-        
-        if let currentPlacemark = WTLocationManager.sharedLocationManager.currentPlacemark?.subLocality
-        {
-            
-            locationTitle = currentPlacemark
-            locationLatitude = "\(placemark!.location!.coordinate.latitude)"
-            locationLongitude = "\(placemark!.location!.coordinate.longitude)"
-            
-            
-            print(locationLatitude)
-            print(locationLongitude)
-            
-            
-          
-            
-        }
-        else if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Denied
-        {
-            
-            WTLocationManager.sharedLocationManager.startUpdatingLocation()
-            
-        }
-        else
-        {
-            
-            let alert = UIAlertController(title: "Alert", message: "Please wait while we fetch your location.", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-            
-        }
-        
+        initLocationManager()
         
     }
+
     @IBAction func didTapManualInputButton(sender: UIButton) {
         
         

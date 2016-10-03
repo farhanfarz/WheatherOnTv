@@ -44,9 +44,6 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     
     @IBOutlet weak var getCityDetailsButton: UIButton!
     
-    
-    
-    var locManager = CLLocationManager()
     var locationToBeDisplayedField : String?
     var arrayOfTime : [String]?
     var arrayOfWeeks : [String] = []
@@ -65,6 +62,8 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     let apiKey:String = "eea1961c530c59ba1c9a9aca79112e3c"
     
     var openWeatherAppObject:OpenWeatherMap!
+    
+    var locationCordinate:CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,23 +96,47 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         } else {
             print("bad input")
         }
-        
-        let lat = 51.509865
-        let lon = -0.118092
-        //        let locationCordinate = CLLocationCoordinate2DMake(lat, lon)
-        
-        
-        var currentLocation = CLLocation()
-        
-        
-        var longitude = Double(currentLocation.coordinate.longitude)
-        var latitude = Double(currentLocation.coordinate.latitude)
-        let locationCordinate = CLLocationCoordinate2DMake(longitude, latitude)
-//        openWeatherAppObject.currentWeatherByCoordinate(locationCordinate) { (error, currentWeatherDictionary) in
-//            
-//            
-//            print("currentWeatherByCoordinate:\(currentWeatherDictionary)")
-//        }
+       
+        if let locationCord = locationCordinate {
+            
+            UIView.transitionWithView(weatherDetailsView, duration: 1.0, options: .AllowAnimatedContent, animations: {
+                
+                self.weatherDetailsView.alpha = 1
+                
+            }) { (true) in
+                
+                self.openWeatherAppObject.currentWeatherByCoordinate(locationCord) { (error, currentWeatherDictionary) in
+                    
+                    print("currentWeatherByCoordinate:\(currentWeatherDictionary)")
+                    
+                    if error == nil {
+                        
+                        self.customizeWithWeatherInfoDictionary(currentWeatherDictionary)
+                        
+                    }else {
+                        
+                        print(error)
+                    }
+                    
+                }
+                
+                self.openWeatherAppObject.forecastWeatherByCoordinate(locationCord) { (error, responseDictionary) in
+                    
+                    if error == nil {
+                        // UI customisations
+                        
+                        self.customizeForForeCast(responseDictionary)
+                        
+                    }else {
+                        print(error)
+                    }
+                    
+                }
+                
+                
+            }
+            
+        }
         
     }
     
@@ -124,6 +147,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         UIView.transitionWithView(weatherDetailsView, duration: 1.0, options: .AllowAnimatedContent, animations: {
             
             self.weatherDetailsView.alpha = 1
+            
         }) { (true) in
             
             self.city = self.cityNameTextField.text
@@ -131,74 +155,14 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
             self.openWeatherAppObject.currentWeatherByCityName(self.city!) { (error, responseDictionary) in
                 
                 if error == nil {
-                    // UI customisations
-                    print(responseDictionary)
                     
-                    if let cityName = responseDictionary!["name"] as? String {
-                        
-                        self.locationLabel.text = cityName
-                        
-                    }
-                    
-                    if let temperatureDetails = responseDictionary!["main"] as? NSDictionary {
-                        
-                        if let tempData = temperatureDetails["temp"] as? String {
-                            
-                            self.degreeLabel.text = tempData
-                            
-                        }
-                        
-                        if let tempData = temperatureDetails["temp"] as? Double {
-                            
-                            self.degreeLabel.text = String(format: "%.1f",tempData)
-                            
-                        }
-                        
-                        if let tempData = temperatureDetails["temp_max"] as? Double {
-                            
-                            let dataToBeRounded = tempData
-                            let roundedData = Double(round(1000*dataToBeRounded)/1000)
-                            self.maximumDegree.text = "Maximum: \(roundedData)" + "  ,  "
-                            
-                        }
-                        if let tempData = temperatureDetails["temp_min"] as? Double {
-                            let dataToBeRounded = tempData
-                            let roundedData = Double(round(1000*dataToBeRounded)/1000)
-                            
-                            self.minimumDegree.text = "Minimum: \(roundedData)"
-                            
-                        }
-                        
-                    }
-                    if let weatherTypeArray = responseDictionary!["weather"] as? NSArray {
-                        
-                        for weatherDict in weatherTypeArray {
-                            
-                            if let weatherTypeData = weatherDict["description"] as? String {
-                                
-                                self.cloudType.text = weatherTypeData
-                            }
-                            
-                            if let weatherTypeImage = weatherDict["icon"] as? String {
-                                
-                                
-                                let weatherIcon = "http://openweathermap.org/img/w/\(weatherDict["icon"]).png"
-                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                    self.weatherTypeImage.image = UIImage(named: weatherIcon)
-                                })
-                                
-                                
-                            }
-                            
-                            
-                        }
-                        
-                    }
+                    self.customizeWithWeatherInfoDictionary(responseDictionary)
                     
                 }else {
                     
                     print(error)
                 }
+
                 
                 
             }
@@ -207,17 +171,8 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                 
                 if error == nil {
                     // UI customisations
-                    if responseDictionary != nil {
-                        print("\nForeCast: "+"\(responseDictionary)")
-                        
-                        
-                        if let dateTimeOfWeek = responseDictionary["dt_txt"] as? String {
-                            
-                            
-                            let dayOfWeek = "\(self.getDayOfWeek(dateTimeOfWeek))"
-                            self.arrayOfWeeks.append(dayOfWeek)
-                        }
-                    }
+                    
+                    self.customizeForForeCast(responseDictionary)
                     
                 }else {
                     print(error)
@@ -230,6 +185,92 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
             
         }
         
+        
+    }
+    
+    func customizeWithWeatherInfoDictionary(responseDictionary:[NSObject:AnyObject]?) {
+        
+        // UI customisations
+        print(responseDictionary)
+        
+        if let cityName = responseDictionary!["name"] as? String {
+            
+            self.locationLabel.text = cityName
+            
+        }
+        
+        if let temperatureDetails = responseDictionary!["main"] as? NSDictionary {
+            
+            if let tempData = temperatureDetails["temp"] as? String {
+                
+                self.degreeLabel.text = tempData
+                
+            }
+            
+            if let tempData = temperatureDetails["temp"] as? Double {
+                
+                self.degreeLabel.text = String(format: "%.1f",tempData)
+                
+            }
+            
+            if let tempData = temperatureDetails["temp_max"] as? Double {
+                
+                let dataToBeRounded = tempData
+                let roundedData = Double(round(1000*dataToBeRounded)/1000)
+                self.maximumDegree.text = "Maximum: \(roundedData)" + "  ,  "
+                
+            }
+            if let tempData = temperatureDetails["temp_min"] as? Double {
+                let dataToBeRounded = tempData
+                let roundedData = Double(round(1000*dataToBeRounded)/1000)
+                
+                self.minimumDegree.text = "Minimum: \(roundedData)"
+                
+            }
+            
+        }
+        if let weatherTypeArray = responseDictionary!["weather"] as? NSArray {
+            
+            for weatherDict in weatherTypeArray {
+                
+                if let weatherTypeData = weatherDict["description"] as? String {
+                    
+                    self.cloudType.text = weatherTypeData
+                }
+                
+                if let weatherTypeImage = weatherDict["icon"] as? String {
+                    
+                    let weatherIcon = "http://openweathermap.org/img/w/\(weatherTypeImage).png"
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        if let data = NSData(contentsOfURL: NSURL(string: weatherIcon)!) {
+                            self.weatherTypeImage.image = UIImage(data: data)
+                        }
+                        
+                    })
+                    
+                    
+                }
+                
+                
+            }
+            
+        }
+        
+    }
+    
+    func customizeForForeCast(responseDictionary:[NSObject:AnyObject]?) {
+        
+        if responseDictionary != nil {
+            print("\nForeCast: "+"\(responseDictionary)")
+            
+            
+            if let dateTimeOfWeek = responseDictionary!["dt_txt"] as? String {
+                
+                
+                let dayOfWeek = "\(self.getDayOfWeek(dateTimeOfWeek))"
+                self.arrayOfWeeks.append(dayOfWeek)
+            }
+        }
         
     }
     
