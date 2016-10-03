@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="fwY-xY-NfY">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="fwY-xY-NfY">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="SF-UI-Display-Light.otf">
@@ -49,7 +48,7 @@
         <!--View Controller-->
         <scene sceneID="y6R-NG-0Yr">
             <objects>
-                <viewController storyboardIdentifier="detailedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eOk-Nv-297" customClass="ViewController" customModule="WheatherOnTv" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eOk-Nv-297" customClass="ViewController" customModule="WeatherOnTV" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1PQ-n3-8Q3"/>
                         <viewControllerLayoutGuide type="bottom" id="xVN-oY-LOc"/>
@@ -146,7 +145,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionOfWeeksIdentifier" id="bxy-EJ-Q3W" customClass="WTWeeksCollectionViewCell" customModule="WheatherOnTv" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionOfWeeksIdentifier" id="bxy-EJ-Q3W" customClass="WTWeeksCollectionViewCell" customModule="WeatherOnTV" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -202,7 +201,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionOfTimesIdentifier" id="YSo-Vv-9ta" customClass="WTTimeCollectionViewCell" customModule="WheatherOnTv" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionOfTimesIdentifier" id="YSo-Vv-9ta" customClass="WTTimeCollectionViewCell" customModule="WeatherOnTV" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -247,7 +246,7 @@
                                         </cells>
                                     </collectionView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="cg9-Wb-RBU" firstAttribute="centerX" secondItem="FPK-6J-XPL" secondAttribute="centerX" constant="-1" id="1ny-8P-Npm"/>
                                     <constraint firstAttribute="bottom" secondItem="QHU-ix-Lma" secondAttribute="bottom" constant="20" id="41P-NH-bGW"/>
@@ -283,7 +282,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fiesso Umbertiano" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dbc-kQ-AWO">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dbc-kQ-AWO">
                                         <rect key="frame" x="20" y="177" width="492" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -319,61 +318,79 @@
                                     <constraint firstItem="EUj-oW-30p" firstAttribute="leading" secondItem="DQb-bO-Vop" secondAttribute="leading" constant="20" id="zoz-3F-cnC"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="21u-5s-bkN">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="21u-5s-bkN">
                                 <rect key="frame" x="830" y="107" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="2WG-p7-Tph"/>
                                     <constraint firstAttribute="width" constant="35" id="S2Q-5h-2Ix"/>
                                 </constraints>
                             </imageView>
-                            <textField contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="78Z-XQ-w7e">
-                                <rect key="frame" x="530" y="102" width="859" height="46"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSp-HE-35H">
+                                <rect key="frame" x="522" y="59" width="1037" height="109"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter city name to get  weather details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhP-nQ-npi">
+                                        <rect key="frame" x="8" y="5" width="859" height="21"/>
+                                        <color key="backgroundColor" white="1" alpha="0.01" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="gny-E9-DCD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="78Z-XQ-w7e">
+                                        <rect key="frame" x="8" y="43" width="859" height="46"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="uRR-YA-aL6"/>
+                                        </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="30"/>
+                                        <textInputTraits key="textInputTraits" keyboardAppearance="light"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Br-86-0ut">
+                                        <rect key="frame" x="881" y="43" width="120" height="46"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="noR-ys-mvF"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                        <state key="normal" title="GO"/>
+                                        <connections>
+                                            <action selector="getCityWeatherData:" destination="eOk-Nv-297" eventType="primaryActionTriggered" id="CZH-T0-MXg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="uRR-YA-aL6"/>
+                                    <constraint firstItem="4Br-86-0ut" firstAttribute="bottom" secondItem="78Z-XQ-w7e" secondAttribute="bottom" id="5ZQ-j0-j93"/>
+                                    <constraint firstAttribute="height" constant="109" id="FWl-Sw-haL"/>
+                                    <constraint firstItem="78Z-XQ-w7e" firstAttribute="trailing" secondItem="EhP-nQ-npi" secondAttribute="trailing" id="P8z-lG-zdz"/>
+                                    <constraint firstItem="78Z-XQ-w7e" firstAttribute="leading" secondItem="EhP-nQ-npi" secondAttribute="leading" id="V5Y-o0-PXg"/>
+                                    <constraint firstItem="4Br-86-0ut" firstAttribute="leading" secondItem="78Z-XQ-w7e" secondAttribute="trailing" constant="14" id="eC0-mh-EWM"/>
+                                    <constraint firstItem="EhP-nQ-npi" firstAttribute="leading" secondItem="iSp-HE-35H" secondAttribute="leading" constant="8" id="eHU-re-yOm"/>
+                                    <constraint firstItem="4Br-86-0ut" firstAttribute="top" secondItem="78Z-XQ-w7e" secondAttribute="top" id="eLC-Sx-ktK"/>
+                                    <constraint firstItem="78Z-XQ-w7e" firstAttribute="top" secondItem="EhP-nQ-npi" secondAttribute="bottom" constant="17" id="kdc-7U-aK1"/>
+                                    <constraint firstItem="EhP-nQ-npi" firstAttribute="top" secondItem="iSp-HE-35H" secondAttribute="top" constant="5" id="ni4-l3-6dc"/>
+                                    <constraint firstAttribute="trailing" secondItem="EhP-nQ-npi" secondAttribute="trailing" constant="170" id="pT1-Xf-b4Z"/>
                                 </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="30"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter city name to get  weather details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhP-nQ-npi">
-                                <rect key="frame" x="530" y="64" width="859" height="21"/>
-                                <color key="backgroundColor" white="1" alpha="0.01" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="gny-E9-DCD"/>
-                                    <constraint firstAttribute="width" constant="859" id="vvZ-Hw-4eA"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Br-86-0ut">
-                                <rect key="frame" x="1403" y="102" width="136" height="46"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                                <state key="normal" title="GO"/>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DQb-bO-Vop" firstAttribute="leading" secondItem="HAW-dY-bbJ" secondAttribute="leading" constant="2" id="1WW-O7-UU8"/>
-                            <constraint firstItem="4Br-86-0ut" firstAttribute="top" secondItem="78Z-XQ-w7e" secondAttribute="top" id="2Ce-3v-XLb"/>
-                            <constraint firstItem="78Z-XQ-w7e" firstAttribute="trailing" secondItem="EhP-nQ-npi" secondAttribute="trailing" id="2kR-rG-XyX"/>
                             <constraint firstItem="xVN-oY-LOc" firstAttribute="top" secondItem="Cjo-Yy-JKl" secondAttribute="bottom" id="3PF-GN-CAz"/>
                             <constraint firstItem="Cjo-Yy-JKl" firstAttribute="top" secondItem="HAW-dY-bbJ" secondAttribute="top" id="3Y1-1B-KDQ"/>
                             <constraint firstAttribute="trailing" secondItem="Cjo-Yy-JKl" secondAttribute="trailing" id="5Er-qh-Nqb"/>
+                            <constraint firstAttribute="trailing" secondItem="iSp-HE-35H" secondAttribute="trailing" constant="361" id="Caq-Hb-1DU"/>
                             <constraint firstItem="xVN-oY-LOc" firstAttribute="top" secondItem="FPK-6J-XPL" secondAttribute="bottom" constant="100" id="D5n-TP-tXc"/>
-                            <constraint firstItem="EhP-nQ-npi" firstAttribute="centerX" secondItem="Cjo-Yy-JKl" secondAttribute="centerX" id="Dqt-YS-2em"/>
-                            <constraint firstItem="4Br-86-0ut" firstAttribute="leading" secondItem="78Z-XQ-w7e" secondAttribute="trailing" constant="14" id="JHT-XW-1Hd"/>
-                            <constraint firstItem="21u-5s-bkN" firstAttribute="top" secondItem="EhP-nQ-npi" secondAttribute="bottom" constant="22" id="NTV-8C-EYi"/>
-                            <constraint firstItem="EhP-nQ-npi" firstAttribute="top" secondItem="HAW-dY-bbJ" secondAttribute="topMargin" constant="64" id="Ofj-K7-eol"/>
+                            <constraint firstItem="iSp-HE-35H" firstAttribute="top" secondItem="HAW-dY-bbJ" secondAttribute="top" constant="59" id="NFQ-7u-tog"/>
                             <constraint firstItem="Cjo-Yy-JKl" firstAttribute="leading" secondItem="HAW-dY-bbJ" secondAttribute="leading" id="Ujp-Tf-VPi"/>
                             <constraint firstItem="FPK-6J-XPL" firstAttribute="centerX" secondItem="Cjo-Yy-JKl" secondAttribute="centerX" id="Vkd-GS-p0r"/>
                             <constraint firstItem="DQb-bO-Vop" firstAttribute="top" secondItem="HAW-dY-bbJ" secondAttribute="top" constant="5" id="Vnw-ud-qfF"/>
-                            <constraint firstItem="78Z-XQ-w7e" firstAttribute="top" secondItem="EhP-nQ-npi" secondAttribute="bottom" constant="17" id="e0E-Zm-K77"/>
-                            <constraint firstItem="4Br-86-0ut" firstAttribute="bottom" secondItem="78Z-XQ-w7e" secondAttribute="bottom" id="fE3-Dz-MaF"/>
-                            <constraint firstItem="78Z-XQ-w7e" firstAttribute="leading" secondItem="EhP-nQ-npi" secondAttribute="leading" id="n6O-NN-RwS"/>
                             <constraint firstItem="21u-5s-bkN" firstAttribute="leading" secondItem="DQb-bO-Vop" secondAttribute="trailing" constant="308" id="ryu-kj-hnv"/>
+                            <constraint firstItem="iSp-HE-35H" firstAttribute="leading" secondItem="DQb-bO-Vop" secondAttribute="trailing" id="wDd-av-zIo"/>
                         </constraints>
                     </view>
                     <connections>
@@ -381,12 +398,14 @@
                         <outlet property="cloudType" destination="4bx-sZ-dID" id="To7-oB-Q0V"/>
                         <outlet property="dayOfWeekLabel" destination="eRz-mO-yxI" id="SjX-cO-zGp"/>
                         <outlet property="degreeLabel" destination="Egl-qk-ncK" id="NRG-hp-Wdf"/>
+                        <outlet property="getCityDetailsButton" destination="4Br-86-0ut" id="7Yf-bj-9A5"/>
                         <outlet property="hourMinuteMeridianLabel" destination="EUj-oW-30p" id="uBU-PL-d4n"/>
                         <outlet property="locationLabel" destination="Dbc-kQ-AWO" id="o7v-tP-u1O"/>
                         <outlet property="maximumDegree" destination="Gh8-iA-ndt" id="86Y-ME-P9j"/>
                         <outlet property="minimumDegree" destination="Yt7-eL-3cu" id="Oc1-d5-Wob"/>
                         <outlet property="timeCollectionView" destination="Ag0-11-fl9" id="Lim-du-R6H"/>
-                        <outlet property="weatherTypeImage" destination="cg9-Wb-RBU" id="2b9-ww-6zy"/>
+                        <outlet property="weatherDetailsView" destination="FPK-6J-XPL" id="Y1k-sj-nyY"/>
+                        <outlet property="weatherTypeImage" destination="cg9-Wb-RBU" id="QF8-in-00b"/>
                         <outlet property="weekCollectionView" destination="QHU-ix-Lma" id="Vxe-SC-9Kb"/>
                     </connections>
                 </viewController>
@@ -424,7 +443,7 @@
         <!--Main Location View Controller-->
         <scene sceneID="coD-kk-mNp">
             <objects>
-                <viewController id="fer-fp-M4q" customClass="WTMainLocationViewController" customModule="WheatherOnTv" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fer-fp-M4q" customClass="WTMainLocationViewController" customModule="WeatherOnTV" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qCg-LF-FUg"/>
                         <viewControllerLayoutGuide type="bottom" id="LI3-bw-b0D"/>
@@ -451,7 +470,6 @@
                                         <state key="normal" title="Current GPS location"/>
                                         <connections>
                                             <action selector="didTapGPSButton:" destination="fer-fp-M4q" eventType="touchUpInside" id="La4-1M-c27"/>
-                                            <segue destination="eOk-Nv-297" kind="show" id="3Mo-nB-QAE"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ah9-Am-GX4">
@@ -460,6 +478,7 @@
                                         <state key="normal" title="Manual Input"/>
                                         <connections>
                                             <action selector="didTapManualInputButton:" destination="fer-fp-M4q" eventType="touchUpInside" id="Jwk-Y9-3Qh"/>
+                                            <segue destination="eOk-Nv-297" kind="show" id="POJ-bb-XJN"/>
                                         </connections>
                                     </button>
                                 </subviews>

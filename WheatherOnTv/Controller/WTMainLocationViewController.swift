@@ -45,6 +45,8 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
 
         labelLogoTitle.text = "Weather ON"
         
+        initLocationManager()
+        
         if NSUserDefaults.standardUserDefaults().objectForKey("default_location") != nil {
             self.performSegueWithIdentifier("To_Weather_Page", sender: self)
         }
@@ -121,7 +123,7 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager!,  didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager,  didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         var shouldIAllow = false
         
         switch status {
@@ -159,6 +161,10 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
             locationTitle = currentPlacemark
             locationLatitude = "\(placemark!.location!.coordinate.latitude)"
             locationLongitude = "\(placemark!.location!.coordinate.longitude)"
+            
+            
+            print(locationLatitude)
+            print(locationLongitude)
             
             
           

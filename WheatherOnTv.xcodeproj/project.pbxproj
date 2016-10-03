@@ -50,7 +50,7 @@
 		7A2509AA1D7050DD00625177 /* WTMainLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTMainLocationViewController.swift; sourceTree = "<group>"; };
 		7A60C7F21D6B086D009F7B10 /* WTWeeksCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTWeeksCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A60C7F41D6B2BE1009F7B10 /* WTCornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTCornerRadius.swift; sourceTree = "<group>"; };
-		7A78EE541D65BFCB004FC738 /* WheatherOnTv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheatherOnTv.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A78EE541D65BFCB004FC738 /* WeatherOnTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherOnTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A78EE571D65BFCB004FC738 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A78EE591D65BFCB004FC738 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
 		7A78EE5C1D65BFCB004FC738 /* WheatherOnTv.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WheatherOnTv.xcdatamodel; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		7A78EE551D65BFCB004FC738 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7A78EE541D65BFCB004FC738 /* WheatherOnTv.app */,
+				7A78EE541D65BFCB004FC738 /* WeatherOnTV.app */,
 				7A78EE681D65BFCB004FC738 /* WheatherOnTvTests.xctest */,
 				7A78EE731D65BFCB004FC738 /* WheatherOnTvUITests.xctest */,
 			);
@@ -221,7 +221,7 @@
 			);
 			name = WheatherOnTv;
 			productName = WheatherOnTv;
-			productReference = 7A78EE541D65BFCB004FC738 /* WheatherOnTv.app */;
+			productReference = 7A78EE541D65BFCB004FC738 /* WeatherOnTV.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7A78EE671D65BFCB004FC738 /* WheatherOnTvTests */ = {
@@ -484,7 +484,7 @@
 				INFOPLIST_FILE = WheatherOnTv/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AleGiacomella.WheatherOnTv;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WeatherOnTV;
 				SWIFT_OBJC_BRIDGING_HEADER = "WheatherOnTv/WheatherOnTv-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -499,7 +499,7 @@
 				INFOPLIST_FILE = WheatherOnTv/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AleGiacomella.WheatherOnTv;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WeatherOnTV;
 				SWIFT_OBJC_BRIDGING_HEADER = "WheatherOnTv/WheatherOnTv-Bridging-Header.h";
 			};
 			name = Release;
