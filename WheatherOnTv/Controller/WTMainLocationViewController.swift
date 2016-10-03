@@ -16,9 +16,7 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
     
     @IBOutlet weak var currentGPSButton: UIButton!
     
-    
     @IBOutlet weak var manualInputButton: UIButton!
-    
     
     @IBOutlet weak var titleContainer: UIView!
     
@@ -27,19 +25,10 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var labelLogoTitle: UILabel!
     
     var locationManager : CLLocationManager?
-    
-    var lastLocation = CLLocation()
+
     var locationAuthorizationStatus:CLAuthorizationStatus!
     var window: UIWindow?
-   
-    var seenError : Bool = false
-    var locationFixAchieved : Bool = false
-    var locationStatus : NSString = "Not Started"
-    var locationTitle : String?
-    var locationLatitude : String?
-    
-    var locationLongitude : String?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -72,8 +61,7 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
     }
      //Location Manager helper stuff
     func initLocationManager() {
-        seenError = false
-        locationFixAchieved = false
+
         locationManager = CLLocationManager()
         locationManager!.delegate = self
         locationManager!.desiredAccuracy = kCLLocationAccuracyBest
@@ -89,21 +77,6 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
             
         }
     }
-    
-//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        var current = (locations.last! as? CLLocation)
-//        var defLocation = WeatherLocation()
-//        
-//        var openWeatherLocation = OpenWeatherMap()
-//        openWeatherLocation.setCoordinates(current.coordinate)
-//        var data = NSKeyedArchiver.archivedDataWithRootObject(defLocation)
-//        NSUserDefaults.standardUserDefaults().setObject(data, forKey: "default_location")
-//        NSUserDefaults.standardUserDefaults().synchronize()
-//        self.performSegueWithIdentifier("To_Weather_Page", sender: self)
-//    }
-//    
-////    func locationManager(manager: CLLocationManager, didFailWithError error: NSError?) {
-////    }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         locationManager!.stopUpdatingLocation()
@@ -127,8 +100,8 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
     }
 
     func locationManager(manager: CLLocationManager,  didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        var shouldIAllow = false
         
+        var locationStatus:String = ""
         switch status {
         case CLAuthorizationStatus.Restricted:
             locationStatus = "Restricted Access to location"
@@ -138,16 +111,9 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
             locationStatus = "Status not determined"
         default:
             locationStatus = "Allowed to location Access"
-            shouldIAllow = true
         }
-        NSNotificationCenter.defaultCenter().postNotificationName("LabelHasbeenUpdated", object: nil)
-        if (shouldIAllow == true) {
-            print("Location to Allowed")
-            // Start location services
-          WTLocationManager.sharedLocationManager.startUpdatingLocation()
-        } else {
-            print("Denied access: \(locationStatus)")
-        }
+        
+        print(locationStatus)
     }
 
     @IBAction func didTapGPSButton(sender: UIButton) {
@@ -160,6 +126,7 @@ class WTMainLocationViewController: UIViewController,CLLocationManagerDelegate {
         
         
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
