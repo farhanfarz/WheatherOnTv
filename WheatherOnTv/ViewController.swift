@@ -60,6 +60,8 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     
     let timeFormatter = NSDateFormatter()
     
+    var currentDate:NSDate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,10 +79,12 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         weekCollectionView.dataSource = self
         
         arrayOfWeeks = ["Monday","Tuesday","Wendesday","Thursday","Friday","Saturday","Sunday"]
-        arrayOfTime = ["9.00 am ","10.00 pm","11.00 pm","12.00 pm","8.00 pm","12.00 pm","1.00 pm"]
+//        arrayOfTime = ["9.00 am ","10.00 pm","11.00 pm","12.00 pm","8.00 pm","12.00 pm","1.00 pm"]
         
         timeFormatter.dateStyle = .NoStyle
         timeFormatter.timeStyle = .MediumStyle
+        
+        currentDate = NSDate()
         
         if let locationCord = locationCordinate {
             
